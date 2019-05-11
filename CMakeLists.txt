@@ -18,7 +18,11 @@ set(SOURCE_FILES
         GameArea.cpp
         GameArea.h
         GameWidget.cpp
-        GameWidget.h)
+        GameWidget.h
+        gameObjects/GameObject.cpp
+        gameObjects/GameObject.h
+        gameObjects/Player.cpp
+        gameObjects/Player.h gameObjects/Obstacle.cpp gameObjects/Obstacle.h gameObjects/Shot.cpp gameObjects/Shot.h)
 
 add_executable(Harambe ${SOURCE_FILES})
 target_link_libraries(Harambe Qt5::Widgets Qt5::Multimedia)

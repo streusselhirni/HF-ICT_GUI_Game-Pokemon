@@ -3,6 +3,9 @@
 
 
 #include <QWidget>
+#include <QPushButton>
+#include <QLineEdit>
+#include <QSlider>
 
 class GameArea;
 
@@ -11,11 +14,20 @@ Q_OBJECT;
 private:
     GameArea *gameArea;
 
+    // GUI
+    QPushButton *startButton;
+    QLineEdit *numShots;
+    QSlider *speedSlider;
+    QLineEdit *speedOutput;
+    QSlider *angleSlider;
+    QLineEdit *angleOutput;
+
     void createObjects();
 
     void createLayout();
 
     void connectObjects();
+
 
 public:
     virtual ~GameWidget();

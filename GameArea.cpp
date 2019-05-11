@@ -1,7 +1,3 @@
-//
-// Created by Nicolas Haenni on 2019-05-11.
-//
-
 #include "GameArea.h"
 #include <QImage>
 #include <QPainter>

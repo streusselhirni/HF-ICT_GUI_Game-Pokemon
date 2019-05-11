@@ -3,17 +3,22 @@
 
 
 #include <QWidget>
+#include <QPushButton>
+#include <QLineEdit>
 
 class GameWidget : public QWidget {
 Q_OBJECT;
 private:
-    GameArea *gameArea;
+    //GameArea *gameArea;
 
     void createObjects();
 
     void createLayout();
 
     void connectObjects();
+
+    QPushButton *startButton;
+    QLineEdit *numShots;
 
 public:
     virtual ~GameWidget();

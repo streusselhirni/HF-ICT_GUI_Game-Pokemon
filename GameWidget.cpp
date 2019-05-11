@@ -19,7 +19,7 @@ void GameWidget::createLayout() {
 
     vbox->addWidget(new QLabel("Harambe"));
 
-    vbox->addWidget(this->gameArea);
+    //vbox->addWidget(this->gameArea);
 
     auto hbox = new QHBoxLayout();
     hbox->addWidget(new QLabel("Test"));

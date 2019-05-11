@@ -7,5 +7,5 @@ int main(int argc, char** argv)
     GameWindow gw;
     gw.show();
 
-    return a.exec();
+    return QApplication::exec();
 }

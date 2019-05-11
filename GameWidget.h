@@ -4,7 +4,7 @@
 
 #include <QWidget>
 #include <QPushButton>
-#include <QLineEdit>
+#include <QSpinBox>
 #include <QSlider>
 
 class GameArea;
@@ -16,11 +16,11 @@ private:
 
     // GUI
     QPushButton *startButton;
-    QLineEdit *numShots;
+    QSpinBox *numShots;
     QSlider *speedSlider;
-    QLineEdit *speedOutput;
+    QSpinBox *speedOutput;
     QSlider *angleSlider;
-    QLineEdit *angleOutput;
+    QSpinBox *angleOutput;
 
     void createObjects();
 

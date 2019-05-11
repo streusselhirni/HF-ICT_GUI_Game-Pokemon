@@ -5,13 +5,22 @@
 #include <QWidget>
 #include <QPushButton>
 #include <QLineEdit>
+#include <QSlider>
 
 class GameArea;
 
 class GameWidget : public QWidget {
 Q_OBJECT;
 private:
-    //GameArea *gameArea;
+    GameArea *gameArea;
+
+    // GUI
+    QPushButton *startButton;
+    QLineEdit *numShots;
+    QSlider *speedSlider;
+    QLineEdit *speedOutput;
+    QSlider *angleSlider;
+    QLineEdit *angleOutput;
 
     void createObjects();
 
@@ -19,8 +28,6 @@ private:
 
     void connectObjects();
 
-    QPushButton *startButton;
-    QLineEdit *numShots;
 
 public:
     virtual ~GameWidget();

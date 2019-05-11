@@ -22,11 +22,31 @@ void GameWidget::createLayout() {
 
     vbox->addWidget(new QLabel("Harambe"));
 
-    //vbox->addWidget(this->gameArea);
+    vbox->addWidget(this->gameArea);
+
 
     auto hbox = new QHBoxLayout();
-    hbox->addWidget(new QLabel("Test"));
-    hbox->addWidget(new QLabel("Test"));
+
+    this->startButton = new QPushButton("Start");
+    hbox->addWidget(this->startButton);
+
+    hbox->addWidget(new QLabel("Shot #"));
+    this->numShots = new QLineEdit("0");
+    hbox->addWidget(this->numShots);
+
+    hbox->addWidget(new QLabel("Speed"));
+    this->speedSlider = new QSlider(Qt::Orientation::Horizontal);
+    hbox->addWidget(this->speedSlider);
+    this->speedOutput = new QLineEdit("0");
+    hbox->addWidget(this->speedOutput);
+
+    hbox->addWidget(new QLabel("Angle"));
+    this->angleSlider = new QSlider(Qt::Orientation::Horizontal);
+    hbox->addWidget(this->angleSlider);
+    this->angleOutput = new QLineEdit("0");
+    hbox->addWidget(this->angleOutput);
+
+
     vbox->addLayout(hbox);
 
     this->setLayout(vbox);

@@ -15,7 +15,7 @@ private:
     GameArea *gameArea;
 
     // GUI
-    QPushButton *startButton;
+    QPushButton *actionButton;
     QSpinBox *numShots;
     QSlider *speedSlider;
     QSpinBox *speedOutput;

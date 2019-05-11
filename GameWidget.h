@@ -6,6 +6,8 @@
 #include <QPushButton>
 #include <QLineEdit>
 
+class GameArea;
+
 class GameWidget : public QWidget {
 Q_OBJECT;
 private:

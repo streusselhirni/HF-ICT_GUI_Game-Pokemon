@@ -4,6 +4,8 @@
 
 #include <QWidget>
 
+class GameArea;
+
 class GameWidget : public QWidget {
 Q_OBJECT;
 private:

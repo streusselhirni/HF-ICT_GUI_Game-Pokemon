@@ -1,10 +1,13 @@
 #include <QHBoxLayout>
 #include <QLabel>
 #include "GameWidget.h"
+#include "GameArea.h"
 
 GameWidget::~GameWidget() {}
 
 GameWidget::GameWidget(QWidget *parent) : QWidget(parent) {
+    this->gameArea = new GameArea(this);
+
     this->createObjects();
     this->createLayout();
     this->connectObjects();

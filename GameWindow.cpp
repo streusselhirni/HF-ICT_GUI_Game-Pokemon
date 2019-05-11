@@ -3,6 +3,7 @@
 //
 
 #include "GameWindow.h"
+#include "GameArea.h"
 #include <QHBoxLayout>
 #include <QLabel>
 

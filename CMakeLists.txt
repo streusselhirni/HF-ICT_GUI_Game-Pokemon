@@ -14,7 +14,9 @@ find_package(Qt5Multimedia REQUIRED)
 set(SOURCE_FILES
         main.cpp
         GameWindow.cpp
-        GameWindow.h)
+        GameWindow.h
+        GameArea.cpp
+        GameArea.h)
 
 add_executable(Harambe ${SOURCE_FILES})
 target_link_libraries(Harambe Qt5::Widgets Qt5::Multimedia)

@@ -7,13 +7,13 @@
 #include <QPainter>
 #include <QDebug>
 
-GameArea::GameArea(QWidget* parent)
+GameArea::GameArea(QWidget* parent, int w, int h): width(w), height(h)
 {
     this->backgroundImage = new QImage("img/background.jpg");
 
     // TODO: Remove this again, this is just for testing
-    auto *player = new Player(10, this->backgroundImage->scaledToWidth(1200).height() - 200);
-    auto* obstacle = new Obstacle(1000, 100);
+    auto *player = new Player(10, this->backgroundImage->scaledToWidth(this->width).height() - 200);
+    auto* obstacle = new Obstacle(500, 100);
     auto *shot = new Shot(400, 400, 50, 50);
 
     this->gameObjects.push_back(player);
@@ -28,7 +28,7 @@ GameArea::GameArea(QWidget* parent)
 void GameArea::paintEvent(QPaintEvent* event)
 {
     QPainter painter(this);
-    painter.drawImage(0, 0, this->backgroundImage->scaledToWidth(1200));
+    painter.drawImage(0, 0, this->backgroundImage->scaledToWidth(this->width));
 
     for (GameObject* g : this->gameObjects) {
         g->paint(&painter);

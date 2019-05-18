@@ -16,6 +16,8 @@ private:
     static short const RUNNING = 2;
 
     GameArea *gameArea;
+    int width;
+    int height;
 
     // GUI
     QPushButton *actionButton;
@@ -37,7 +39,7 @@ private:
 public:
     virtual ~GameWidget();
 
-    explicit GameWidget(QWidget *parent);
+    explicit GameWidget(QWidget *parent, int w, int h);
 
     void actionButtonClicked();
 

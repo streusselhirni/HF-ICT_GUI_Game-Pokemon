@@ -6,8 +6,8 @@
 
 GameWidget::~GameWidget() {}
 
-GameWidget::GameWidget(QWidget *parent) : QWidget(parent) {
-    this->gameArea = new GameArea(this);
+GameWidget::GameWidget(QWidget *parent, int w, int h) : QWidget(parent), width(w), height(h) {
+    this->gameArea = new GameArea(this, this->width, this->height - 100);
     this->currentState = GameWidget::MENU;
 
     this->createObjects();

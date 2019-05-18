@@ -12,7 +12,7 @@ void Thread::run()
 #pragma clang diagnostic ignored "-Wmissing-noreturn"
     while(true) {
         emit(refresh());
-        msleep(20);
+        msleep(35);
     }
 #pragma clang diagnostic pop
 }

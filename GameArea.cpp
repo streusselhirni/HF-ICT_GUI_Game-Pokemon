@@ -6,6 +6,7 @@
 #include <QImage>
 #include <QPainter>
 #include <random>
+#include <QDebug>
 
 GameArea::GameArea(QWidget* parent, int w, int h): width(w), height(h)
 {
@@ -14,6 +15,7 @@ GameArea::GameArea(QWidget* parent, int w, int h): width(w), height(h)
     this->t = new Thread();
     connect(t, &Thread::refresh, this, &GameArea::next);
     t->start();
+    t->resume();
 }
 
 void GameArea::paintEvent(QPaintEvent* event)
@@ -32,11 +34,14 @@ GameArea::~GameArea()
     for (GameObject* g : this->gameObjects) {
         delete g;
     }
+    t->pause();
+    t->wait();
     delete this->t;
 }
 
 void GameArea::next()
 {
+    qDebug() << "Next";
     for(GameObject* g : this->gameObjects) {
         g->move();
     }

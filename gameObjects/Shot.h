@@ -10,8 +10,12 @@
 
 class Shot: public GameObject
 {
+private:
+    int speed;
+    int angle;
+    double t;
 public:
-    Shot(int x, int y);
+    Shot(int x, int y, int speed, int angle);
     void move();
 };
 

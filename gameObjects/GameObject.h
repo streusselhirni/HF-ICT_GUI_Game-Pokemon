@@ -19,6 +19,7 @@ private:
 protected:
     int x;
     int y;
+    int width;
 
 public:
     GameObject(int x, int y, const QString& imgPath, int width);

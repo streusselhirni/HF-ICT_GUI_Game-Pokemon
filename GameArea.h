@@ -5,21 +5,29 @@
 #ifndef HARAMBE_GAMEAREA_H
 #define HARAMBE_GAMEAREA_H
 
-
+#include <vector>
 #include <QWidget>
 
 class QImage;
+
+class GameObject;
+
+class Thread;
 
 class GameArea: public QWidget
 {
 Q_OBJECT;
 private:
     QImage *backgroundImage;
+    std::vector<GameObject*> gameObjects;
+    Thread* t;
 protected:
     void paintEvent(QPaintEvent* event) override;
 public:
     explicit GameArea(QWidget* parent = nullptr);
     ~GameArea() override;
+public slots:
+    void next();
 };
 
 

@@ -2,11 +2,13 @@
 #include <QLabel>
 #include "GameWidget.h"
 #include "GameArea.h"
+#include <QDebug>
 
 GameWidget::~GameWidget() {}
 
 GameWidget::GameWidget(QWidget *parent) : QWidget(parent) {
     this->gameArea = new GameArea(this);
+    this->currentState = GameWidget::MENU;
 
     this->createObjects();
     this->createLayout();
@@ -67,4 +69,27 @@ void GameWidget::createLayout() {
 void GameWidget::connectObjects() {
     QObject::connect(this->speedSlider, &QSlider::valueChanged, this->speedOutput, &QSpinBox::setValue);
     QObject::connect(this->angleSlider, &QSlider::valueChanged, this->angleOutput, &QSpinBox::setValue);
+    QObject::connect(this->actionButton, &QPushButton::clicked, this, &GameWidget::actionButtonClicked);
+}
+
+void GameWidget::actionButtonClicked() {
+    if (this->isInteractable()) {
+        this->actionButton->setText("Shoot");
+        emit this->shoot(this->speedOutput->value(), this->angleOutput->value());
+    } else {
+        if (this->isRunning()) {
+            this->actionButton->setText("Continue");
+        } else {
+            this->actionButton->setText("Shoot");
+        }
+        this->currentState = GameWidget::RUNNING;
+    }
+}
+
+bool GameWidget::isInteractable() {
+    return !(this->currentState & GameWidget::MENU);
+}
+
+bool GameWidget::isRunning() {
+    return this->currentState & GameWidget::RUNNING;
 }

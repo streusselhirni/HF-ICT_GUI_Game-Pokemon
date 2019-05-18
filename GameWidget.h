@@ -12,6 +12,9 @@ class GameArea;
 class GameWidget : public QWidget {
 Q_OBJECT;
 private:
+    static short const MENU = 1;
+    static short const RUNNING = 2;
+
     GameArea *gameArea;
 
     // GUI
@@ -21,6 +24,8 @@ private:
     QSpinBox *speedOutput;
     QSlider *angleSlider;
     QSpinBox *angleOutput;
+
+    short currentState;
 
     void createObjects();
 
@@ -32,8 +37,16 @@ private:
 public:
     virtual ~GameWidget();
 
-
     explicit GameWidget(QWidget *parent);
+
+    void actionButtonClicked();
+
+    bool isInteractable();
+
+    bool isRunning();
+
+signals:
+    void shoot(int speed, int angle);
 };
 
 

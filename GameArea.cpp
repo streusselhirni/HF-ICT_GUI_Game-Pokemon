@@ -37,10 +37,17 @@ void GameArea::paintEvent(QPaintEvent* event)
 
 GameArea::~GameArea()
 {
-
+    delete this->backgroundImage;
+    for (GameObject* g : this->gameObjects) {
+        delete g;
+    }
+    delete this->t;
 }
 
 void GameArea::next()
 {
-    qDebug() << "Next called";
+    for(GameObject* g : this->gameObjects) {
+        g->move();
+    }
+    this->update();
 }

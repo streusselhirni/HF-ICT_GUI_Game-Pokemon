@@ -42,3 +42,8 @@ int GameObject::getHeight()
 {
     return this->img->scaledToWidth(this->width).height();
 }
+
+GameObject::~GameObject()
+{
+    delete this->img;
+}

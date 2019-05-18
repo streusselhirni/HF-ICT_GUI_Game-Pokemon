@@ -74,7 +74,6 @@ void GameWidget::connectObjects() {
 
 void GameWidget::actionButtonClicked() {
     if (this->isInteractable()) {
-        this->actionButton->setText("Shoot");
         emit this->shoot(this->speedOutput->value(), this->angleOutput->value());
     } else {
         if (this->isRunning()) {

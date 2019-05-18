@@ -2,18 +2,10 @@
 #include "gameObjects/Player.h"
 #include "gameObjects/Obstacle.h"
 #include "gameObjects/Shot.h"
+#include "Thread.h"
 #include <QImage>
 #include <QPainter>
-
-void GameArea::paintEvent(QPaintEvent* event)
-{
-    QPainter painter(this);
-    painter.drawImage(0, 0, this->backgroundImage->scaledToWidth(1200));
-
-    for (GameObject* g : this->gameObjects) {
-        g->paint(&painter);
-    }
-}
+#include <QDebug>
 
 GameArea::GameArea(QWidget* parent)
 {
@@ -27,9 +19,28 @@ GameArea::GameArea(QWidget* parent)
     this->gameObjects.push_back(player);
     this->gameObjects.push_back(obstacle);
     this->gameObjects.push_back(shot);
+
+    this->t = new Thread();
+    connect(t, &Thread::refresh, this, &GameArea::next);
+    t->start();
+}
+
+void GameArea::paintEvent(QPaintEvent* event)
+{
+    QPainter painter(this);
+    painter.drawImage(0, 0, this->backgroundImage->scaledToWidth(1200));
+
+    for (GameObject* g : this->gameObjects) {
+        g->paint(&painter);
+    }
 }
 
 GameArea::~GameArea()
 {
 
+}
+
+void GameArea::next()
+{
+    qDebug() << "Next called";
 }

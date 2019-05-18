@@ -3,7 +3,7 @@
 #include <QImage>
 #include "GameObject.h"
 
-GameObject::GameObject(int x, int y, const QString& imgPath, int width): x(x), y(y)
+GameObject::GameObject(int x, int y, const QString& imgPath, int width): x(x), y(y), width(width)
 {
     this->img = new QImage(imgPath);
 }
@@ -35,10 +35,10 @@ void GameObject::setY(int val)
 
 int GameObject::getWidth()
 {
-    return this->img->width();
+    return this->width;
 }
 
 int GameObject::getHeight()
 {
-    return this->img->height();
+    return this->img->scaledToWidth(this->width).height();
 }

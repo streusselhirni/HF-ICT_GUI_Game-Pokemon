@@ -28,6 +28,8 @@ protected:
 public:
     explicit GameArea(QWidget* parent, int w, int h);
     ~GameArea() override;
+    void startGame();
+    void shoot();
 public slots:
     void next();
 };

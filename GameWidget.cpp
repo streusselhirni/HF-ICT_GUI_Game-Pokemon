@@ -80,15 +80,24 @@ void GameWidget::actionButtonClicked() {
             this->actionButton->setText("Continue");
         } else {
             this->actionButton->setText("Shoot");
+            this->gameArea->startGame();
         }
         this->currentState = GameWidget::RUNNING;
     }
 }
 
+/**
+ * Returns true if the game is not in "Menu-Mode" (when you can play)
+ * @return
+ */
 bool GameWidget::isInteractable() {
     return !(this->currentState & GameWidget::MENU);
 }
 
+/**
+ * Returns true if the game has started and is playable right now
+ * @return
+ */
 bool GameWidget::isRunning() {
     return this->currentState & GameWidget::RUNNING;
 }

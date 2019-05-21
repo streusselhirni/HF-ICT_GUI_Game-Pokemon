@@ -8,6 +8,8 @@ GameObject::GameObject(int x, int y, const QString& imgPath, int width): x(x), y
     this->img = new QImage(imgPath);
 }
 
+GameObject::GameObject() = default;
+
 void GameObject::paint(QPainter* painter)
 {
     painter->drawImage(this->x, this->y, this->img->scaledToWidth(this->getWidth()));

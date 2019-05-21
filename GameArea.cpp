@@ -4,6 +4,7 @@
 #include "gameObjects/Shot.h"
 #include "Thread.h"
 #include "CollisionDetection.h"
+#include "gameObjects/Crosshair.h"
 #include <QImage>
 #include <QPainter>
 #include <random>
@@ -26,6 +27,8 @@ void GameArea::paintEvent(QPaintEvent *event) {
     for (GameObject *g : this->gameObjects) {
         g->paint(&painter);
     }
+
+    if (this->crosshair != nullptr) this->crosshair->paint(&painter);
 }
 
 GameArea::~GameArea() {
@@ -77,6 +80,8 @@ void GameArea::startGame() {
     auto *player = new Player(10, this->backgroundImage->scaledToWidth(this->width).height() - 200);
     this->gameObjects.push_back(player);
 
+    this->crosshair = new Crosshair(100, this->backgroundImage->scaledToWidth(this->width).height() - 150);
+
     int x = 700 + (rand() % 15 * 10);
     int y = 200 + (rand() % 15 * 10);
 
@@ -102,4 +107,14 @@ uint64_t GameArea::measure() {
     return std::chrono::duration_cast<std::chrono::milliseconds>(
             std::chrono::system_clock::now().time_since_epoch()
     ).count();
+}
+
+void GameArea::angleChanged(int a)
+{
+    if (this->crosshair != nullptr) this->crosshair->setAngle(a);
+}
+
+void GameArea::strengthChanged(int s)
+{
+    if (this->crosshair != nullptr) this->crosshair->setLength(2 * s);
 }

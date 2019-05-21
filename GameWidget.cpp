@@ -75,7 +75,9 @@ void GameWidget::createLayout() {
 
 void GameWidget::connectObjects() {
     QObject::connect(this->speedSlider, &QSlider::valueChanged, this->speedOutput, &QSpinBox::setValue);
+    QObject::connect(this->speedSlider, &QSlider::valueChanged, this->gameArea, &GameArea::strengthChanged);
     QObject::connect(this->angleSlider, &QSlider::valueChanged, this->angleOutput, &QSpinBox::setValue);
+    QObject::connect(this->angleSlider, &QSlider::valueChanged, this->gameArea, &GameArea::angleChanged);
     QObject::connect(this->actionButton, &QPushButton::clicked, this, &GameWidget::actionButtonClicked);
     QObject::connect(this, &GameWidget::shoot, this->gameArea, &GameArea::shoot);
     QObject::connect(this->gameArea, &GameArea::gameFinished, this, &GameWidget::onGameFinished);

@@ -14,14 +14,18 @@ class GameObject;
 
 class Thread;
 
+class Crosshair;
+
 class GameArea : public QWidget {
 Q_OBJECT;
 private:
     QImage *backgroundImage;
     std::vector<GameObject *> gameObjects;
+    Crosshair* crosshair;
     Thread *t;
     int width;
     int height;
+    int angle;
     uint64_t lastMeasurement{};
 protected:
     void paintEvent(QPaintEvent *event) override;
@@ -42,6 +46,10 @@ public:
 public slots:
 
     void next();
+
+    void angleChanged(int a);
+
+    void strengthChanged(int s);
 
 signals:
 

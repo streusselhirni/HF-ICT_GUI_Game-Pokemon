@@ -30,7 +30,7 @@ set(SOURCE_FILES
         Thread.cpp
         Thread.h
         CollisionDetection.cpp
-        CollisionDetection.h)
+        CollisionDetection.h gameObjects/Crosshair.cpp gameObjects/Crosshair.h)
 
 add_executable(Harambe ${SOURCE_FILES})
 target_link_libraries(Harambe Qt5::Widgets Qt5::Multimedia)

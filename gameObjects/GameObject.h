@@ -27,11 +27,13 @@ public:
 
     GameObject(int x, int y, const QString &imgPath, int width);
 
+    GameObject();
+
     virtual ~GameObject();
 
     virtual void move(uint64_t delta) = 0;
 
-    void paint(QPainter *painter);
+    virtual void paint(QPainter *painter);
 
     int getX() const;
 

@@ -20,6 +20,9 @@ public:
 private:
     double degtorad(int deg);
     void move(uint64_t delta) override;
+public:
+    void onOutOfBound() override;
+private:
     short getBodyType() const override;
 };
 

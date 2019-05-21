@@ -3,7 +3,7 @@
 #include <cmath>
 #include "Crosshair.h"
 
-Crosshair::Crosshair(int x, int y) : x(x), y(y), angle(45), length(100)
+Crosshair::Crosshair(int x, int y) : x(x), y(y), angle(0), length(0)
 {
 
 }
@@ -44,6 +44,11 @@ void Crosshair::setLength(int l)
 double Crosshair::degtorad(int deg)
 {
     return deg * 3.14159/180;
+}
+
+void Crosshair::onOutOfBound()
+{
+
 }
 
 Crosshair::~Crosshair() = default;

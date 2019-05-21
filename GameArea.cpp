@@ -39,6 +39,7 @@ GameArea::~GameArea() {
         delete p;
     }
     delete this->player;
+    delete this->crosshair;
 }
 
 void GameArea::next() {

@@ -48,3 +48,7 @@ void Obstacle::move(uint64_t delta) {
 short Obstacle::getBodyType() const {
     return GameObject::KINEMATIC_BODY;
 }
+
+void Obstacle::onOutOfBound() {
+
+}

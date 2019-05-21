@@ -31,7 +31,7 @@ public:
 
     virtual void move(uint64_t delta) = 0;
 
-    void paint(QPainter *painter);
+    virtual void paint(QPainter *painter);
 
     int getX() const;
 
@@ -46,6 +46,8 @@ public:
     int getHeight() const;
 
     virtual short getBodyType() const = 0;
+
+    virtual void onOutOfBound() = 0;
 };
 
 

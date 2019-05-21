@@ -3,7 +3,7 @@
 
 Player::Player(int x, int y): GameObject(x, y, QString("img/gorilla.png"), 150)
 {
-
+    this->shot = new Shot(x, y, 0, 0);
 }
 
 void Player::move(uint64_t delta)
@@ -13,4 +13,21 @@ void Player::move(uint64_t delta)
 
 short Player::getBodyType() const {
     return GameObject::BODY_NONE;
+}
+
+void Player::shoot(int speed, int angle) {
+    this->shot->t = 0;
+    this->shot->setX(this->x);
+    this->shot->setY(this->y);
+    this->shot->setSpeed(speed);
+    this->shot->setAngle(angle);
+    this->shot->fire();
+}
+
+Shot *Player::getShot() const {
+    return this->shot;
+}
+
+void Player::onOutOfBound() {
+
 }

@@ -7,6 +7,7 @@
 
 #include <vector>
 #include <QWidget>
+#include "gameObjects/Player.h"
 
 class QImage;
 
@@ -24,9 +25,9 @@ private:
     int height;
     uint64_t lastMeasurement{};
 protected:
-    void paintEvent(QPaintEvent *event) override;
+    Player *player;
 
-    uint64_t measure();
+    void paintEvent(QPaintEvent *event) override;
 
 public:
     explicit GameArea(QWidget *parent, int w, int h);
@@ -38,6 +39,8 @@ public:
     void endGame();
 
     void shoot(int speed, int angle);
+
+    uint64_t measure();
 
 public slots:
 

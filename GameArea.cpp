@@ -16,6 +16,7 @@ GameArea::GameArea(QWidget *parent, int w, int h) : width(w), height(h) {
     this->t = new Thread();
     connect(t, &Thread::refresh, this, &GameArea::next);
     t->start();
+    this->player = nullptr;
 }
 
 void GameArea::paintEvent(QPaintEvent *event) {
@@ -32,6 +33,7 @@ GameArea::~GameArea() {
     for (auto p : this->gameObjects) {
         delete p;
     }
+    delete this->player;
 }
 
 void GameArea::next() {
@@ -41,13 +43,11 @@ void GameArea::next() {
         g->move(delta);
     }
 
-    std::vector<GameObject *>::iterator iter;
-    for (iter = this->gameObjects.begin(); iter != this->gameObjects.end();) {
-        if (CollisionDetection::isOutOfBound((*iter), this)) {
+    for (GameObject *g : this->gameObjects) {
+        g->move(delta);
+        if (CollisionDetection::isOutOfBound(g, this)) {
             // This is not very efficient.
-            iter = this->gameObjects.erase(iter);
-        } else {
-            ++iter;
+            g->onOutOfBound();
         }
     }
 
@@ -72,8 +72,9 @@ void GameArea::next() {
 }
 
 void GameArea::startGame() {
-    auto *player = new Player(10, this->backgroundImage->scaledToWidth(this->width).height() - 200);
+    this->player = new Player(10, this->backgroundImage->scaledToWidth(this->width).height() - 200);
     this->gameObjects.push_back(player);
+    this->gameObjects.push_back(player->getShot());
 
     int x = 700 + (rand() % 15 * 10);
     int y = 200 + (rand() % 15 * 10);
@@ -88,11 +89,12 @@ void GameArea::endGame() {
     for (auto p : this->gameObjects) {
         delete p;
     }
+    delete this->player;
     this->gameObjects.clear();
 }
 
 void GameArea::shoot(int speed, int angle) {
-    this->gameObjects.push_back(new Shot(50, 400, speed, angle));
+    this->player->shoot(speed, angle);
 }
 
 uint64_t GameArea::measure() {

@@ -6,16 +6,31 @@
 
 class Shot : public GameObject {
 private:
+    friend class Player;
+
     double const g = 9.81;
     int speed;
     int angle;
     double t;
-public:
+    bool fired;
+
     Shot(int x, int y, int speed, int angle);
+
+public:
 
     void move(uint64_t delta) override;
 
     short getBodyType() const override;
+
+    void setSpeed(int speed);
+
+    void setAngle(int angle);
+
+    void fire();
+
+    void paint(QPainter *painter) override;
+
+    void onOutOfBound() override;
 };
 
 

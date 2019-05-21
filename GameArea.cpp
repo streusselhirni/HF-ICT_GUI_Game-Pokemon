@@ -73,8 +73,8 @@ void GameArea::next() {
 
 void GameArea::startGame() {
     this->player = new Player(10, this->backgroundImage->scaledToWidth(this->width).height() - 200);
-    this->gameObjects.push_back(player);
     this->gameObjects.push_back(player->getShot());
+    this->gameObjects.push_back(player);
 
     int x = 700 + (rand() % 15 * 10);
     int y = 200 + (rand() % 15 * 10);
@@ -89,8 +89,8 @@ void GameArea::endGame() {
     for (auto p : this->gameObjects) {
         delete p;
     }
-    delete this->player;
     this->gameObjects.clear();
+    delete this->player;
 }
 
 void GameArea::shoot(int speed, int angle) {

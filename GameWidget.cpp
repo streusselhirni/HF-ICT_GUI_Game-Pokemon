@@ -74,6 +74,8 @@ void GameWidget::connectObjects() {
     QObject::connect(this->speedSlider, &QSlider::valueChanged, this->speedOutput, &QSpinBox::setValue);
     QObject::connect(this->angleSlider, &QSlider::valueChanged, this->angleOutput, &QSpinBox::setValue);
     QObject::connect(this->actionButton, &QPushButton::clicked, this, &GameWidget::actionButtonClicked);
+    QObject::connect(this, &GameWidget::shoot, this->gameArea, &GameArea::shoot);
+    QObject::connect(this->gameArea, &GameArea::gameFinished, this, &GameWidget::onGameFinished);
 }
 
 void GameWidget::actionButtonClicked() {
@@ -105,4 +107,8 @@ bool GameWidget::isInteractable() {
  */
 bool GameWidget::isRunning() {
     return this->currentState & GameWidget::RUNNING;
+}
+
+void GameWidget::onGameFinished() {
+    qDebug() << "Finished";
 }

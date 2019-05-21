@@ -2,11 +2,11 @@
 #define HARAMBE_COLLISIONDETECTION_H
 
 
-#include "GameObject.h"
+#include "gameObjects/GameObject.h"
 
 class CollisionDetection {
 public:
-    bool check(GameObject *obj, GameObject *obj2);
+    bool static check(GameObject *obj, GameObject *obj2);
 };
 
 

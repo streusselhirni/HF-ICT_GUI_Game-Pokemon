@@ -14,24 +14,36 @@ class GameObject;
 
 class Thread;
 
-class GameArea: public QWidget
-{
+class GameArea : public QWidget {
 Q_OBJECT;
 private:
     QImage *backgroundImage;
-    std::vector<GameObject*> gameObjects;
-    Thread* t;
+    std::vector<GameObject *> gameObjects;
+    Thread *t;
     int width;
     int height;
+    uint64_t lastMeasurement{};
 protected:
-    void paintEvent(QPaintEvent* event) override;
+    void paintEvent(QPaintEvent *event) override;
+
+    uint64_t measure();
+
 public:
-    explicit GameArea(QWidget* parent, int w, int h);
+    explicit GameArea(QWidget *parent, int w, int h);
+
     ~GameArea() override;
+
     void startGame();
-    void shoot();
+
+    void shoot(int speed, int angle);
+
 public slots:
+
     void next();
+
+signals:
+
+    void gameFinished();
 };
 
 

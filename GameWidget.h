@@ -47,6 +47,8 @@ public:
 
     bool isRunning();
 
+    void onGameFinished();
+
 signals:
     void shoot(int speed, int angle);
 };

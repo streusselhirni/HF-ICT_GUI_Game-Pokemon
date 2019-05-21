@@ -13,11 +13,8 @@ class Thread : public QThread
     Q_OBJECT;
 public:
     Thread();
-    void resume();
-    void pause();
 private:
     void run() override;
-    bool running;
 signals:
     void refresh();
 };

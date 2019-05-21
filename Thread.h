@@ -11,12 +11,20 @@
 class Thread : public QThread
 {
     Q_OBJECT;
+private:
+    bool active;
+    void run() override;
 public:
     Thread();
-private:
-    void run() override;
+
+    void pause();
+
+    void resume();
+
+    bool isActive() const;
 signals:
     void refresh();
+
 };
 
 

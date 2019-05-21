@@ -35,6 +35,7 @@ private:
 
     void connectObjects();
 
+    void reset();
 
 public:
     virtual ~GameWidget();

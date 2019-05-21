@@ -3,6 +3,7 @@
 #include "GameWidget.h"
 #include "GameArea.h"
 #include <QDebug>
+#include <QMessageBox>
 
 GameWidget::~GameWidget() {}
 
@@ -21,6 +22,7 @@ void GameWidget::createObjects() {
     this->numShots = new QSpinBox();
     this->numShots->setReadOnly(true);
     this->numShots->setFixedWidth(40);
+    this->numShots->setMaximum(1000);
     this->numShots->setButtonSymbols(QSpinBox::ButtonSymbols::NoButtons);
 
     this->speedSlider = new QSlider(Qt::Orientation::Horizontal);
@@ -76,6 +78,8 @@ void GameWidget::connectObjects() {
     QObject::connect(this->actionButton, &QPushButton::clicked, this, &GameWidget::actionButtonClicked);
     QObject::connect(this, &GameWidget::shoot, this->gameArea, &GameArea::shoot);
     QObject::connect(this->gameArea, &GameArea::gameFinished, this, &GameWidget::onGameFinished);
+    QObject::connect(this->gameArea, &GameArea::gameFinished, this, &GameWidget::reset);
+    QObject::connect(this->gameArea, &GameArea::gameFinished, this->gameArea, &GameArea::endGame);
 }
 
 void GameWidget::actionButtonClicked() {
@@ -110,5 +114,17 @@ bool GameWidget::isRunning() {
 }
 
 void GameWidget::onGameFinished() {
-    qDebug() << "Finished";
+    if (this->isInteractable()) {
+        this->currentState |= GameWidget::MENU;
+        QMessageBox::information(this, tr("Your score!"),
+                                 QString("It took you %1 shots to hit the obstacle").arg(this->numShots->text()));
+    }
+}
+
+void GameWidget::reset() {
+    this->numShots->setValue(0);
+    this->speedSlider->setValue(0);
+    this->angleSlider->setValue(0);
+    this->actionButton->setText("Start");
+    this->currentState = GameWidget::MENU;
 }

@@ -29,28 +29,44 @@ void GameArea::paintEvent(QPaintEvent *event) {
 
 GameArea::~GameArea() {
     delete this->backgroundImage;
-    for (GameObject *g : this->gameObjects) {
-        delete g;
+    for (auto p : this->gameObjects) {
+        delete p;
     }
 }
 
 void GameArea::next() {
-    //qDebug() << "Next";
     auto newMeasurement = this->measure();
     auto delta = newMeasurement - this->lastMeasurement;
     for (GameObject *g : this->gameObjects) {
         g->move(delta);
     }
 
+    std::vector<GameObject *>::iterator iter;
+    for (iter = this->gameObjects.begin(); iter != this->gameObjects.end();) {
+        if (CollisionDetection::isOutOfBound((*iter), this)) {
+            // This is not very efficient.
+            iter = this->gameObjects.erase(iter);
+        } else {
+            ++iter;
+        }
+    }
+
+    bool stop = false;
     for (int i = 0; i < this->gameObjects.size(); ++i) {
         auto g = this->gameObjects[i];
         for (int j = i + 1; j < this->gameObjects.size(); ++j) {
             auto g2 = this->gameObjects[j];
             if (CollisionDetection::check(g, g2)) {
                 emit this->gameFinished();
+                stop = true;
+                break;
             }
         }
+        if (stop) {
+            break;
+        }
     }
+
     this->lastMeasurement = newMeasurement;
     this->update();
 }
@@ -59,14 +75,20 @@ void GameArea::startGame() {
     auto *player = new Player(10, this->backgroundImage->scaledToWidth(this->width).height() - 200);
     this->gameObjects.push_back(player);
 
-    // TODO: Make these numbers random
-    int x = 800;
-    int y = 300;
+    int x = 700 + (rand() % 15 * 10);
+    int y = 200 + (rand() % 15 * 10);
 
     auto *obstacle = new Obstacle(x, y);
 
     this->gameObjects.push_back(obstacle);
     this->lastMeasurement = this->measure();
+}
+
+void GameArea::endGame() {
+    for (auto p : this->gameObjects) {
+        delete p;
+    }
+    this->gameObjects.clear();
 }
 
 void GameArea::shoot(int speed, int angle) {

@@ -18,3 +18,7 @@ bool CollisionDetection::check(GameObject *obj, GameObject *obj2) {
 
     return false;
 }
+
+bool CollisionDetection::isOutOfBound(GameObject *obj, QWidget *widget) {
+    return widget->size().width() < obj->getX() || widget->size().height() < obj->getY();
+}

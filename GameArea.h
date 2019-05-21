@@ -35,6 +35,8 @@ public:
 
     void startGame();
 
+    void endGame();
+
     void shoot(int speed, int angle);
 
 public slots:

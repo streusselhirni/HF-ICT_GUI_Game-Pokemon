@@ -24,6 +24,7 @@ void GameArea::paintEvent(QPaintEvent *event) {
     painter.drawImage(0, 0, this->backgroundImage->scaledToWidth(this->width));
 
     for (GameObject *g : this->gameObjects) {
+        painter.resetTransform();
         g->paint(&painter);
     }
 }
@@ -46,7 +47,6 @@ void GameArea::next() {
     for (GameObject *g : this->gameObjects) {
         g->move(delta);
         if (CollisionDetection::isOutOfBound(g, this)) {
-            // This is not very efficient.
             g->onOutOfBound();
         }
     }

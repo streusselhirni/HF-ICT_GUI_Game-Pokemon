@@ -17,8 +17,8 @@ short Player::getBodyType() const {
 
 void Player::shoot(int speed, int angle) {
     this->shot->t = 0;
-    this->shot->setX(this->x);
-    this->shot->setY(this->y);
+    this->shot->setX(this->x + 30);
+    this->shot->setY(this->y + 30);
     this->shot->setSpeed(speed);
     this->shot->setAngle(angle);
     this->shot->fire();

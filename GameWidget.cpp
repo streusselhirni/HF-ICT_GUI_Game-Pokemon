@@ -16,7 +16,30 @@ GameWidget::GameWidget(QWidget *parent, int w, int h) : QWidget(parent), width(w
 }
 
 void GameWidget::createObjects() {
+    this->actionButton = new QPushButton("Start");
 
+    this->numShots = new QSpinBox();
+    this->numShots->setReadOnly(true);
+    this->numShots->setFixedWidth(40);
+    this->numShots->setButtonSymbols(QSpinBox::ButtonSymbols::NoButtons);
+
+    this->speedSlider = new QSlider(Qt::Orientation::Horizontal);
+    this->speedSlider->setMinimum(1);
+    this->speedSlider->setMaximum(100);
+
+    this->speedOutput = new QSpinBox();
+    this->speedOutput->setReadOnly(true);
+    this->speedOutput->setFixedWidth(40);
+    this->speedOutput->setButtonSymbols(QSpinBox::ButtonSymbols::NoButtons);
+
+    this->angleSlider = new QSlider(Qt::Orientation::Horizontal);
+    this->angleSlider->setMinimum(0);
+    this->angleSlider->setMaximum(90);
+
+    this->angleOutput = new QSpinBox();
+    this->angleOutput->setReadOnly(true);
+    this->angleOutput->setFixedWidth(40);
+    this->angleOutput->setButtonSymbols(QSpinBox::ButtonSymbols::NoButtons);
 }
 
 void GameWidget::createLayout() {
@@ -29,36 +52,17 @@ void GameWidget::createLayout() {
 
     auto hbox = new QHBoxLayout();
 
-    this->actionButton = new QPushButton("Start");
     hbox->addWidget(this->actionButton);
 
     hbox->addWidget(new QLabel("Shot #"));
-    this->numShots = new QSpinBox();
-    this->numShots->setReadOnly(true);
-    this->numShots->setFixedWidth(40);
-    this->numShots->setButtonSymbols(QSpinBox::ButtonSymbols::NoButtons);
     hbox->addWidget(this->numShots);
 
     hbox->addWidget(new QLabel("Speed"));
-    this->speedSlider = new QSlider(Qt::Orientation::Horizontal);
-    this->speedSlider->setMinimum(1);
-    this->speedSlider->setMaximum(100);
     hbox->addWidget(this->speedSlider);
-    this->speedOutput = new QSpinBox();
-    this->speedOutput->setReadOnly(true);
-    this->speedOutput->setFixedWidth(40);
-    this->speedOutput->setButtonSymbols(QSpinBox::ButtonSymbols::NoButtons);
     hbox->addWidget(this->speedOutput);
 
     hbox->addWidget(new QLabel("Angle"));
-    this->angleSlider = new QSlider(Qt::Orientation::Horizontal);
-    this->angleSlider->setMinimum(0);
-    this->angleSlider->setMaximum(90);
     hbox->addWidget(this->angleSlider);
-    this->angleOutput = new QSpinBox();
-    this->angleOutput->setReadOnly(true);
-    this->angleOutput->setFixedWidth(40);
-    this->angleOutput->setButtonSymbols(QSpinBox::ButtonSymbols::NoButtons);
     hbox->addWidget(this->angleOutput);
 
     vbox->addLayout(hbox);
@@ -74,6 +78,7 @@ void GameWidget::connectObjects() {
 
 void GameWidget::actionButtonClicked() {
     if (this->isInteractable()) {
+        this->numShots->setValue(this->numShots->value() + 1);
         emit this->shoot(this->speedOutput->value(), this->angleOutput->value());
     } else {
         if (this->isRunning()) {

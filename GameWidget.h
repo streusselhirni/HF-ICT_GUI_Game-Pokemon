@@ -35,6 +35,7 @@ private:
 
     void connectObjects();
 
+    void reset();
 
 public:
     virtual ~GameWidget();
@@ -46,6 +47,8 @@ public:
     bool isInteractable();
 
     bool isRunning();
+
+    void onGameFinished();
 
 signals:
     void shoot(int speed, int angle);

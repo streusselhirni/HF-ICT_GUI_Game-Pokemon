@@ -22,7 +22,7 @@ set(SOURCE_FILES
         gameObjects/GameObject.cpp
         gameObjects/GameObject.h
         gameObjects/Player.cpp
-        gameObjects/Player.h gameObjects/Obstacle.cpp gameObjects/Obstacle.h gameObjects/Shot.cpp gameObjects/Shot.h Thread.cpp Thread.h)
+        gameObjects/Player.h gameObjects/Obstacle.cpp gameObjects/Obstacle.h gameObjects/Shot.cpp gameObjects/Shot.h Thread.cpp Thread.h CollisionDetection.cpp CollisionDetection.h)
 
 add_executable(Harambe ${SOURCE_FILES})
 target_link_libraries(Harambe Qt5::Widgets Qt5::Multimedia)

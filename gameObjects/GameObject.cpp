@@ -13,12 +13,12 @@ void GameObject::paint(QPainter* painter)
     painter->drawImage(this->x, this->y, this->img->scaledToWidth(this->getWidth()));
 }
 
-int GameObject::getX()
+int GameObject::getX() const
 {
     return this->x;
 }
 
-int GameObject::getY()
+int GameObject::getY() const
 {
     return this->y;
 }
@@ -33,12 +33,12 @@ void GameObject::setY(int val)
     this->y = val;
 }
 
-int GameObject::getWidth()
+int GameObject::getWidth() const
 {
     return this->width;
 }
 
-int GameObject::getHeight()
+int GameObject::getHeight() const
 {
     return this->img->scaledToWidth(this->width).height();
 }

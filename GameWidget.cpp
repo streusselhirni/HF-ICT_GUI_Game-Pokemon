@@ -6,8 +6,8 @@
 
 GameWidget::~GameWidget() {}
 
-GameWidget::GameWidget(QWidget *parent) : QWidget(parent) {
-    this->gameArea = new GameArea(this);
+GameWidget::GameWidget(QWidget *parent, int w, int h) : QWidget(parent), width(w), height(h) {
+    this->gameArea = new GameArea(this, this->width, this->height - 100);
     this->currentState = GameWidget::MENU;
 
     this->createObjects();
@@ -74,22 +74,30 @@ void GameWidget::connectObjects() {
 
 void GameWidget::actionButtonClicked() {
     if (this->isInteractable()) {
-        this->actionButton->setText("Shoot");
         emit this->shoot(this->speedOutput->value(), this->angleOutput->value());
     } else {
         if (this->isRunning()) {
             this->actionButton->setText("Continue");
         } else {
             this->actionButton->setText("Shoot");
+            this->gameArea->startGame();
         }
         this->currentState = GameWidget::RUNNING;
     }
 }
 
+/**
+ * Returns true if the game is not in "Menu-Mode" (when you can play)
+ * @return
+ */
 bool GameWidget::isInteractable() {
     return !(this->currentState & GameWidget::MENU);
 }
 
+/**
+ * Returns true if the game has started and is playable right now
+ * @return
+ */
 bool GameWidget::isRunning() {
     return this->currentState & GameWidget::RUNNING;
 }

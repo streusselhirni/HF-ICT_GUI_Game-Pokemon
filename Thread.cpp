@@ -4,15 +4,29 @@
 
 #include "Thread.h"
 
-Thread::Thread() = default;
+Thread::Thread(): running(false)
+{
+
+}
 
 void Thread::run()
 {
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wmissing-noreturn"
-    while(true) {
+    while(this->running) {
         emit(refresh());
-        msleep(20);
+        msleep(35);
     }
 #pragma clang diagnostic pop
+    this->exit();
+}
+
+void Thread::resume()
+{
+    if (!this->running) this->running = true;
+}
+
+void Thread::pause()
+{
+    if (this->running) this->running = false;
 }

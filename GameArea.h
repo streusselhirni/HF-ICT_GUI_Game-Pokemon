@@ -21,11 +21,15 @@ private:
     QImage *backgroundImage;
     std::vector<GameObject*> gameObjects;
     Thread* t;
+    int width;
+    int height;
 protected:
     void paintEvent(QPaintEvent* event) override;
 public:
-    explicit GameArea(QWidget* parent = nullptr);
+    explicit GameArea(QWidget* parent, int w, int h);
     ~GameArea() override;
+    void startGame();
+    void shoot();
 public slots:
     void next();
 };

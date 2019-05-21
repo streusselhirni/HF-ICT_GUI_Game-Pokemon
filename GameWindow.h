@@ -10,7 +10,8 @@ class GameWindow : public QMainWindow {
 Q_OBJECT
 private:
     QWidget *gameWidget;
-
+    int windowWidth;
+    int windowHeight;
 public:
     explicit GameWindow(QWidget *parent = nullptr);
 

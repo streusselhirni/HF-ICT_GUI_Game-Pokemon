@@ -23,6 +23,7 @@ protected:
 
 public:
     GameObject(int x, int y, const QString& imgPath, int width);
+    virtual ~GameObject();
     virtual void move() = 0;
     void paint(QPainter* painter);
     int getX();

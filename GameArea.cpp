@@ -8,6 +8,7 @@
 #include <QPainter>
 #include <random>
 #include <QDebug>
+#include <QSound>
 
 GameArea::GameArea(QWidget *parent, int w, int h) : width(w), height(h) {
     this->backgroundImage = new QImage("img/background.jpg");
@@ -57,6 +58,7 @@ void GameArea::next() {
         for (int j = i + 1; j < this->gameObjects.size(); ++j) {
             auto g2 = this->gameObjects[j];
             if (CollisionDetection::check(g, g2)) {
+                QSound::play("sound/burst.wav");
                 emit this->gameFinished();
                 stop = true;
                 break;
@@ -92,6 +94,7 @@ void GameArea::endGame() {
 }
 
 void GameArea::shoot(int speed, int angle) {
+    QSound::play("sound/throw.wav");
     this->gameObjects.push_back(new Shot(50, 400, speed, angle));
 }
 

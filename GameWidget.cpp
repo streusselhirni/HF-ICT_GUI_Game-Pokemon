@@ -3,6 +3,7 @@
 #include "GameWidget.h"
 #include "GameArea.h"
 #include <QDebug>
+#include <QSound>
 #include <QMessageBox>
 
 GameWidget::~GameWidget() {}
@@ -116,6 +117,7 @@ bool GameWidget::isRunning() {
 void GameWidget::onGameFinished() {
     if (this->isInteractable()) {
         this->currentState |= GameWidget::MENU;
+        QSound::play("sound/win.wav");
         QMessageBox::information(this, tr("Your score!"),
                                  QString("It took you %1 shots to hit the obstacle").arg(this->numShots->text()));
     }

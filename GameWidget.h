@@ -28,6 +28,7 @@ private:
     QSpinBox *angleOutput;
 
     short currentState;
+    uint64_t lastPushTime;
 
     void createObjects();
 

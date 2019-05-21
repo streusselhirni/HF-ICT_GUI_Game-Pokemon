@@ -11,6 +11,7 @@ GameWidget::~GameWidget() {}
 GameWidget::GameWidget(QWidget *parent, int w, int h) : QWidget(parent), width(w), height(h) {
     this->gameArea = new GameArea(this, this->width, this->height - 100);
     this->currentState = GameWidget::MENU;
+    this->lastPushTime = 0;
 
     this->createObjects();
     this->createLayout();
@@ -87,8 +88,13 @@ void GameWidget::connectObjects() {
 
 void GameWidget::actionButtonClicked() {
     if (this->isInteractable()) {
-        this->numShots->setValue(this->numShots->value() + 1);
-        emit this->shoot(this->speedOutput->value(), this->angleOutput->value());
+        // Shoot cooldown
+        auto newMeasure = this->gameArea->measure();
+        if (newMeasure - this->lastPushTime > 1300) {
+            this->numShots->setValue(this->numShots->value() + 1);
+            emit this->shoot(this->speedOutput->value(), this->angleOutput->value());
+            this->lastPushTime = newMeasure;
+        }
     } else {
         if (this->isRunning()) {
             this->actionButton->setText("Continue");

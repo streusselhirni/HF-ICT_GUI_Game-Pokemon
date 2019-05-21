@@ -18,6 +18,8 @@ public:
     void move(uint64_t delta) override;
 
     short getBodyType() const override;
+
+    void onOutOfBound() override;
 };
 
 

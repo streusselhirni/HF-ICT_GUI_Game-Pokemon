@@ -48,6 +48,8 @@ public:
     int getHeight() const;
 
     virtual short getBodyType() const = 0;
+
+    virtual void onOutOfBound() = 0;
 };
 
 

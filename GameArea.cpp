@@ -18,6 +18,7 @@ GameArea::GameArea(QWidget *parent, int w, int h) : width(w), height(h) {
     this->t = new Thread();
     connect(t, &Thread::refresh, this, &GameArea::next);
     t->start();
+    this->player = nullptr;
 }
 
 void GameArea::paintEvent(QPaintEvent *event) {
@@ -25,6 +26,7 @@ void GameArea::paintEvent(QPaintEvent *event) {
     painter.drawImage(0, 0, this->backgroundImage->scaledToWidth(this->width));
 
     for (GameObject *g : this->gameObjects) {
+        painter.resetTransform();
         g->paint(&painter);
     }
 
@@ -36,6 +38,7 @@ GameArea::~GameArea() {
     for (auto p : this->gameObjects) {
         delete p;
     }
+    delete this->player;
 }
 
 void GameArea::next() {
@@ -45,13 +48,10 @@ void GameArea::next() {
         g->move(delta);
     }
 
-    std::vector<GameObject *>::iterator iter;
-    for (iter = this->gameObjects.begin(); iter != this->gameObjects.end();) {
-        if (CollisionDetection::isOutOfBound((*iter), this)) {
-            // This is not very efficient.
-            iter = this->gameObjects.erase(iter);
-        } else {
-            ++iter;
+    for (GameObject *g : this->gameObjects) {
+        g->move(delta);
+        if (CollisionDetection::isOutOfBound(g, this)) {
+            g->onOutOfBound();
         }
     }
 
@@ -77,7 +77,8 @@ void GameArea::next() {
 }
 
 void GameArea::startGame() {
-    auto *player = new Player(10, this->backgroundImage->scaledToWidth(this->width).height() - 200);
+    this->player = new Player(10, this->backgroundImage->scaledToWidth(this->width).height() - 200);
+    this->gameObjects.push_back(player->getShot());
     this->gameObjects.push_back(player);
 
     this->crosshair = new Crosshair(100, this->backgroundImage->scaledToWidth(this->width).height() - 150);
@@ -96,11 +97,12 @@ void GameArea::endGame() {
         delete p;
     }
     this->gameObjects.clear();
+    delete this->player;
 }
 
 void GameArea::shoot(int speed, int angle) {
     QSound::play("sound/throw.wav");
-    this->gameObjects.push_back(new Shot(50, 400, speed, angle));
+    this->player->shoot(speed, angle);
 }
 
 uint64_t GameArea::measure() {

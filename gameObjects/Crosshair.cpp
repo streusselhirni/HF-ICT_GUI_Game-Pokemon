@@ -27,15 +27,6 @@ void Crosshair::setAngle(int a)
     this->angle = a;
 }
 
-void Crosshair::move(uint64_t delta)
-{
-}
-
-short Crosshair::getBodyType() const
-{
-    return GameObject::BODY_NONE;
-}
-
 void Crosshair::setLength(int l)
 {
     this->length = l;
@@ -45,10 +36,3 @@ double Crosshair::degtorad(int deg)
 {
     return deg * 3.14159/180;
 }
-
-void Crosshair::onOutOfBound()
-{
-
-}
-
-Crosshair::~Crosshair() = default;

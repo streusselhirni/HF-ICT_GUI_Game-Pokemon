@@ -38,7 +38,7 @@ GameArea::~GameArea() {
     for (auto p : this->gameObjects) {
         delete p;
     }
-    delete this->player;
+    // delete this->player;
     delete this->crosshair;
 }
 
@@ -81,8 +81,8 @@ void GameArea::startGame() {
     this->player = new Player(10, this->backgroundImage->scaledToWidth(this->width).height() - 200);
     this->gameObjects.push_back(player->getShot());
     this->gameObjects.push_back(player);
-
     this->crosshair = new Crosshair(100, this->backgroundImage->scaledToWidth(this->width).height() - 150);
+    qDebug() << "Created Crosshair";
 
     int x = 700 + (rand() % 15 * 10);
     int y = 200 + (rand() % 15 * 10);
@@ -98,7 +98,7 @@ void GameArea::endGame() {
         delete p;
     }
     this->gameObjects.clear();
-    delete this->player;
+    //delete this->player;
 }
 
 void GameArea::shoot(int speed, int angle) {

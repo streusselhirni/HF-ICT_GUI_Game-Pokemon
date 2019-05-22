@@ -3,7 +3,7 @@
 
 #include "GameObject.h"
 
-class Crosshair : public GameObject
+class Crosshair
 {
 private:
     int angle;
@@ -13,17 +13,11 @@ private:
 
 public:
     Crosshair(int x, int y);
-    ~Crosshair();
     void setAngle(int angle);
     void setLength(int l);
     void paint(QPainter* painter);
 private:
     double degtorad(int deg);
-    void move(uint64_t delta) override;
-public:
-    void onOutOfBound() override;
-private:
-    short getBodyType() const override;
 };
 
 

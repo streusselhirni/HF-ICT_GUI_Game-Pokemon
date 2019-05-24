@@ -3,6 +3,7 @@
 
 
 #include "GameObject.h"
+#include "QMovie"
 
 class Shot : public GameObject {
 private:

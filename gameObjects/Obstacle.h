@@ -2,6 +2,7 @@
 #define HARAMBE_OBSTACLE_H
 
 
+#include <QMovie>
 #include "GameObject.h"
 
 class Obstacle : public GameObject {

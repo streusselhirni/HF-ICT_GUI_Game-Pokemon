@@ -1,8 +1,10 @@
 #include <QString>
 #include "Obstacle.h"
 #include <qDebug>
+#include <QPainter>
+#include <QMovie>
 
-Obstacle::Obstacle(int x, int y) : GameObject(x, y, QString("img/ballon.png"), 50) {
+Obstacle::Obstacle(int x, int y) : GameObject(x, y, 50, new QMovie("img/pokemon.gif"), 75) {
     this->initialX = this->x;
     this->initialY = this->y;
     this->maxHorizontal = 15;
@@ -24,7 +26,7 @@ void Obstacle::move(uint64_t delta) {
             this->horizonalMultiplier = .5;
         }
     }
-    // Ballon is moving right
+        // Ballon is moving right
     else if (this->horizonalMultiplier > 0) {
         if (this->x > this->initialX) {
             this->horizonalMultiplier = -.5;
@@ -37,7 +39,7 @@ void Obstacle::move(uint64_t delta) {
             this->verticalMultiplier = .7;
         }
     }
-    // Ballon is moving down
+        // Ballon is moving down
     else if (this->verticalMultiplier > 0) {
         if (this->y > this->initialY) {
             this->verticalMultiplier = -.7;

@@ -1,13 +1,11 @@
 #include <QString>
 #include "Player.h"
 
-Player::Player(int x, int y): GameObject(x, y, QString("img/gorilla.png"), 150)
-{
+Player::Player(int x, int y) : GameObject(x, y, 150, new QMovie("img/trainer.gif")) {
     this->shot = new Shot(x, y, 0, 0);
 }
 
-void Player::move(uint64_t delta)
-{
+void Player::move(uint64_t delta) {
     // do nothing
 }
 

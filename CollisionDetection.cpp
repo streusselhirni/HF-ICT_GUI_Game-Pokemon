@@ -7,11 +7,11 @@ bool CollisionDetection::check(GameObject *obj, GameObject *obj2) {
 
     auto objX = obj->getX() + (obj->getWidth() / 2);
     auto objY = obj->getY() + (obj->getHeight() / 2);
-    auto objRad = ((obj->getHeight() / 2) + (obj->getWidth() / 2)) / 2;
+    auto objRad = obj->getWidth() / 2;
 
     auto obj2X = obj2->getX() + (obj2->getWidth() / 2);
     auto obj2Y = obj2->getY() + (obj2->getHeight() / 2);
-    auto obj2Rad = ((obj2->getHeight() / 2) + (obj2->getWidth() / 2)) / 2;
+    auto obj2Rad = obj2->getWidth() / 2;
 
     auto distanceY = abs(objY - obj2Y);
     auto distanceX = abs(objX - obj2X);

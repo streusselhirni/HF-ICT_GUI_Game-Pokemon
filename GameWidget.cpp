@@ -10,8 +10,8 @@
 
 GameWidget::~GameWidget() {}
 
-GameWidget::GameWidget(QWidget *parent, int w, int h) : QWidget(parent), width(w), height(h) {
-    this->gameArea = new GameArea(this, this->width, this->height - 100);
+GameWidget::GameWidget(QWidget* parent, int w, int h) : QWidget(parent), width(w), height(h) {
+    this->gameArea     = new GameArea(this, this->width, this->height - 100);
     this->currentState = GameWidget::MENU;
     this->lastPushTime = 0;
 
@@ -127,7 +127,6 @@ bool GameWidget::isRunning() {
 void GameWidget::onGameFinished() {
     if (this->isInteractable()) {
         this->currentState |= GameWidget::MENU;
-        QSound::play("sound/capture.wav");
         QMessageBox::information(this, tr("Your score!"),
                                  QString("It took you %1 shots to capture the Pokémon!").arg(this->numShots->text()));
     }
@@ -141,19 +140,19 @@ void GameWidget::reset() {
     this->currentState = GameWidget::MENU;
 }
 
-void GameWidget::keyPressEvent(QKeyEvent *event) {
+void GameWidget::keyPressEvent(QKeyEvent* event) {
     if (this->pressedKeys[static_cast<const Qt::Key>(event->key())] == RELEASED) {
         this->pressedKeys[static_cast<const Qt::Key>(event->key())] = PRESSED;
-    } else if (this->pressedKeys[static_cast<const Qt::Key>(event->key())] == PRESSED ) {
+    } else if (this->pressedKeys[static_cast<const Qt::Key>(event->key())] == PRESSED) {
         this->pressedKeys[static_cast<const Qt::Key>(event->key())] = HOLD;
     }
 }
 
-void GameWidget::keyReleaseEvent(QKeyEvent *event) {
+void GameWidget::keyReleaseEvent(QKeyEvent* event) {
     this->pressedKeys[static_cast<const Qt::Key>(event->key())] = RELEASED;
 }
 
-void GameWidget::paintEvent(QPaintEvent *event) {
+void GameWidget::paintEvent(QPaintEvent* event) {
     QWidget::paintEvent(event);
     if (this->pressedKeys[(Qt::Key_Left)] == PRESSED || this->pressedKeys[(Qt::Key_Left)] == HOLD) {
         this->angleSlider->setValue(this->angleSlider->value() + 1);
@@ -161,7 +160,7 @@ void GameWidget::paintEvent(QPaintEvent *event) {
     if (this->pressedKeys[(Qt::Key_Right)] == PRESSED || this->pressedKeys[(Qt::Key_Right)] == HOLD) {
         this->angleSlider->setValue(this->angleSlider->value() - 1);
     }
-    if (this->pressedKeys[(Qt::Key_Up)] == PRESSED || this->pressedKeys[(Qt::Key_Up)] == HOLD){
+    if (this->pressedKeys[(Qt::Key_Up)] == PRESSED || this->pressedKeys[(Qt::Key_Up)] == HOLD) {
         this->speedSlider->setValue(this->speedSlider->value() + 1);
     }
     if (this->pressedKeys[(Qt::Key_Down)] == PRESSED || this->pressedKeys[(Qt::Key_Down)] == HOLD) {

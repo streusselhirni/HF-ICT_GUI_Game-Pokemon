@@ -27,18 +27,6 @@ short Shot::getBodyType() const {
     return GameObject::KINEMATIC_BODY;
 }
 
-void Shot::setSpeed(int speed) {
-    this->speed = speed;
-}
-
-void Shot::setAngle(int angle) {
-    this->angle = angle;
-}
-
-void Shot::fire() {
-    this->fired = true;
-}
-
 void Shot::paint(QPainter *painter) {
     if (this->fired) {
         QTransform transform;

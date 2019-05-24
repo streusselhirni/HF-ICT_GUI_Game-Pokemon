@@ -27,12 +27,6 @@ public:
 
     short getBodyType() const override;
 
-    void setSpeed(int speed);
-
-    void setAngle(int angle);
-
-    void fire();
-
     void paint(QPainter *painter) override;
 
     void onOutOfBound() override;

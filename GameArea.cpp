@@ -30,7 +30,7 @@ void GameArea::paintEvent(QPaintEvent *event) {
     if (!this->started) {return;}
 
     for (GameObject *g : this->gameObjects) {
-        g->paint(&painter);
+        g->paint(&painter); // Shots are painted in Player::paint()
     }
 
     this->crosshair->paint(&painter);
@@ -50,7 +50,7 @@ void GameArea::next() {
         auto           newMeasurement = this->measure();
         auto           delta          = newMeasurement - this->lastMeasurement;
         for (GameObject* g : this->gameObjects) {
-            g->move(delta);
+            g->move(delta); // Shots are moved in Player::move()
         }
 
         this->player->checkShotsOutOfBounds(this);

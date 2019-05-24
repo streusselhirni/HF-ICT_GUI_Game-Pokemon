@@ -19,6 +19,9 @@ private:
     Shot(int x, int y, int speed, int angle);
 
 public:
+    bool getFired();
+
+    void init(int x, int y, int speed, int angle, double t);
 
     void move(uint64_t delta) override;
 

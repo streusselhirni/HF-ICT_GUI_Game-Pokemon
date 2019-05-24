@@ -58,3 +58,16 @@ void Shot::paint(QPainter *painter) {
 void Shot::onOutOfBound() {
     this->fired = false;
 }
+
+void Shot::init(int x, int y, int s, int a, double time) {
+    this->x = x;
+    this->y = y;
+    this->speed = s;
+    this->angle = a;
+    this->t = time;
+    this->fired = true;
+}
+
+bool Shot::getFired() {
+    return this->fired;
+}

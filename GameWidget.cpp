@@ -5,6 +5,8 @@
 #include <QDebug>
 #include <QSound>
 #include <QMessageBox>
+#include <QKeyEvent>
+#include <utility>
 
 GameWidget::~GameWidget() {}
 
@@ -12,6 +14,8 @@ GameWidget::GameWidget(QWidget *parent, int w, int h) : QWidget(parent), width(w
     this->gameArea = new GameArea(this, this->width, this->height - 100);
     this->currentState = GameWidget::MENU;
     this->lastPushTime = 0;
+
+    this->setFocusPolicy(Qt::FocusPolicy::StrongFocus);
 
     this->createObjects();
     this->createLayout();
@@ -137,4 +141,31 @@ void GameWidget::reset() {
     this->angleSlider->setValue(0);
     this->actionButton->setText("Start");
     this->currentState = GameWidget::MENU;
+}
+
+void GameWidget::keyPressEvent(QKeyEvent *event) {
+    this->pressedKeys[static_cast<const Qt::Key>(event->key())] =  true;
+}
+
+void GameWidget::keyReleaseEvent(QKeyEvent *event) {
+    this->pressedKeys[static_cast<const Qt::Key>(event->key())] =  false;
+}
+
+void GameWidget::paintEvent(QPaintEvent *event) {
+    QWidget::paintEvent(event);
+    if (this->pressedKeys[(Qt::Key_Left)]) {
+        this->angleSlider->setValue(this->angleSlider->value() + 1);
+    }
+    if (this->pressedKeys[(Qt::Key_Right)]) {
+        this->angleSlider->setValue(this->angleSlider->value() - 1);
+    }
+    if (this->pressedKeys[(Qt::Key_Up)]) {
+        this->speedSlider->setValue(this->speedSlider->value() + 1);
+    }
+    if (this->pressedKeys[(Qt::Key_Down)]) {
+        this->speedSlider->setValue(this->speedSlider->value() - 1);
+    }
+    if (this->pressedKeys[(Qt::Key_Space)]) {
+        this->actionButtonClicked();
+    }
 }

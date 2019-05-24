@@ -11,6 +11,7 @@ Crosshair::Crosshair(int x, int y) : x(x), y(y), angle(0), length(0)
 void Crosshair::paint(QPainter* painter)
 {
     QPen pen(QBrush(Qt::red), 4, Qt::DashLine, Qt::SquareCap, Qt::BevelJoin);
+
     QPoint p1(this->x, this->y);
 
     int tmpangle = 180 - 90 - (90 - this->angle);

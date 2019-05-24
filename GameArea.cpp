@@ -20,7 +20,7 @@ GameArea::GameArea(QWidget *parent, int w, int h) : width(w), height(h) {
     t->start();
     this->player = nullptr;
     this->started = false;
-    this->crosshair = new Crosshair(100, this->backgroundImage->scaledToWidth(this->width).height() - 150);
+    this->crosshair = new Crosshair(70, this->backgroundImage->scaledToWidth(this->width).height() - 180);
 }
 
 void GameArea::paintEvent(QPaintEvent *event) {

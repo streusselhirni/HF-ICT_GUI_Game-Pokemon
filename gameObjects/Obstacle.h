@@ -13,13 +13,10 @@ private:
     float verticalMultiplier;
     int initialX;
     int initialY;
-    QMovie *movie;
 public:
     Obstacle(int x, int y);
 
     void move(uint64_t delta) override;
-
-    void paint(QPainter *painter) override;
 
     short getBodyType() const override;
 

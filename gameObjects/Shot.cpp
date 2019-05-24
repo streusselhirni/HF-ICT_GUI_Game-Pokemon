@@ -3,14 +3,11 @@
 #include "Shot.h"
 #include <QPainter>
 
-Shot::Shot(int x, int y, int speed, int angle) : speed(speed), angle(angle), t(0) {
-    this->x = x;
-    this->y = y;
-    this->width = 30;
-    this->movie = new QMovie("img/pokeball.gif");
-    this->movie->setSpeed(50);
-    this->movie->start();
-    this->img = this->movie->currentImage();
+Shot::Shot(int x, int y, int speed, int angle)
+        : GameObject(x, y, 50, new QMovie("img/pokeball.gif"), 50),
+          speed(speed),
+          angle(angle),
+          t(0) {
     this->fired = false;
 }
 
@@ -42,7 +39,6 @@ void Shot::fire() {
 
 void Shot::paint(QPainter *painter) {
     if (this->fired) {
-        this->img = movie->currentImage();
         GameObject::paint(painter);
     }
 }

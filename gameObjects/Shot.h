@@ -8,7 +8,6 @@
 class Shot : public GameObject {
 private:
     friend class Player;
-    QMovie *movie;
 
     double const g = 9.81;
     int speed;

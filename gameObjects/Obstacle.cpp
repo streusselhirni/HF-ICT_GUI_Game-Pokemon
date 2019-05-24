@@ -4,20 +4,13 @@
 #include <QPainter>
 #include <QMovie>
 
-Obstacle::Obstacle(int x, int y) {
-    this->x = x;
-    this->y = y;
-    this->width = 50;
+Obstacle::Obstacle(int x, int y) : GameObject(x, y, 50, new QMovie("img/pokemon.gif"), 75) {
     this->initialX = this->x;
     this->initialY = this->y;
     this->maxHorizontal = 15;
     this->maxVertical = 120;
     this->horizonalMultiplier = -.5;
     this->verticalMultiplier = -.7;
-    this->movie = new QMovie("img/pokemon.gif");
-    this->movie->setSpeed(75);
-    this->movie->start();
-    this->img = this->movie->currentImage();
 }
 
 void Obstacle::move(uint64_t delta) {
@@ -60,9 +53,4 @@ short Obstacle::getBodyType() const {
 
 void Obstacle::onOutOfBound() {
 
-}
-
-void Obstacle::paint(QPainter *painter) {
-    this->img = movie->currentImage();
-    GameObject::paint(painter);
 }

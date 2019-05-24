@@ -4,6 +4,7 @@
 
 #include <stdint.h>
 #include <QImage>
+#include <QMovie>
 
 class QString;
 
@@ -16,6 +17,7 @@ protected:
     int x;
     int y;
     int width;
+    QMovie *movie;
 
 public:
     short static const BODY_NONE = 0;
@@ -24,6 +26,10 @@ public:
     short static const KINEMATIC_BODY = 3;
 
     GameObject(int x, int y, const QString &imgPath, int width);
+
+    GameObject(int x, int y, int width, QMovie *movie);
+
+    GameObject(int x, int y, int width, QMovie *movie, int movieSpeed);
 
     GameObject();
 

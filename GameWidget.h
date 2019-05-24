@@ -6,6 +6,7 @@
 #include <QPushButton>
 #include <QSpinBox>
 #include <QSlider>
+#include <map>
 
 class GameArea;
 
@@ -14,6 +15,8 @@ Q_OBJECT;
 private:
     static short const MENU = 1;
     static short const RUNNING = 2;
+
+    std::map<Qt::Key, bool> pressedKeys;
 
     GameArea *gameArea;
     int width;
@@ -38,6 +41,13 @@ private:
 
     void reset();
 
+protected:
+    void keyPressEvent(QKeyEvent *event) override;
+
+    void keyReleaseEvent(QKeyEvent *event) override;
+
+    void paintEvent(QPaintEvent *event) override;
+
 public:
     virtual ~GameWidget();
 
@@ -52,6 +62,7 @@ public:
     void onGameFinished();
 
 signals:
+
     void shoot(int speed, int angle);
 };
 

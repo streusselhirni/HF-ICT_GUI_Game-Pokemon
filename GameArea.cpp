@@ -19,18 +19,22 @@ GameArea::GameArea(QWidget *parent, int w, int h) : width(w), height(h) {
     connect(t, &Thread::refresh, this, &GameArea::next);
     t->start();
     this->player = nullptr;
+    this->started = false;
+    this->crosshair = new Crosshair(100, this->backgroundImage->scaledToWidth(this->width).height() - 150);
 }
 
 void GameArea::paintEvent(QPaintEvent *event) {
     QPainter painter(this);
     painter.drawImage(0, 0, this->backgroundImage->scaledToWidth(this->width));
 
+    if (!this->started) {return;}
+
     for (GameObject *g : this->gameObjects) {
         painter.resetTransform();
         g->paint(&painter);
     }
 
-    if (this->crosshair != nullptr) this->crosshair->paint(&painter);
+    this->crosshair->paint(&painter);
 }
 
 GameArea::~GameArea() {
@@ -81,19 +85,20 @@ void GameArea::startGame() {
     this->player = new Player(10, this->backgroundImage->scaledToWidth(this->width).height() - 200);
     this->gameObjects.push_back(player->getShot());
     this->gameObjects.push_back(player);
-    this->crosshair = new Crosshair(100, this->backgroundImage->scaledToWidth(this->width).height() - 150);
     qDebug() << "Created Crosshair";
 
-    int x = 700 + (rand() % 15 * 10);
-    int y = 200 + (rand() % 15 * 10);
+    int x = 700 + (rand() % 18 * 10);
+    int y = 200 + (rand() % 18 * 10);
 
     auto *obstacle = new Obstacle(x, y);
 
     this->gameObjects.push_back(obstacle);
     this->lastMeasurement = this->measure();
+    this->started = true;
 }
 
 void GameArea::endGame() {
+    this->started = false;
     for (auto p : this->gameObjects) {
         delete p;
     }
@@ -112,12 +117,10 @@ uint64_t GameArea::measure() {
     ).count();
 }
 
-void GameArea::angleChanged(int a)
-{
-    if (this->crosshair != nullptr) this->crosshair->setAngle(a);
+void GameArea::angleChanged(int a) {
+    this->crosshair->setAngle(a);
 }
 
-void GameArea::strengthChanged(int s)
-{
-    if (this->crosshair != nullptr) this->crosshair->setLength(2 * s);
+void GameArea::strengthChanged(int s) {
+    this->crosshair->setLength(2 * s);
 }

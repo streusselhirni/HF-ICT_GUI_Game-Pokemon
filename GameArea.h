@@ -1,13 +1,10 @@
-//
-// Created by Nicolas Haenni on 2019-05-11.
-//
-
 #ifndef HARAMBE_GAMEAREA_H
 #define HARAMBE_GAMEAREA_H
 
 #include <vector>
 #include <QWidget>
 #include "gameObjects/Player.h"
+#include "gameObjects/Crosshair.h"
 
 class QImage;
 
@@ -15,7 +12,6 @@ class GameObject;
 
 class Thread;
 
-class Crosshair;
 
 class GameArea : public QWidget {
 Q_OBJECT;
@@ -28,6 +24,7 @@ private:
     int height;
     int angle;
     uint64_t lastMeasurement{};
+    bool started;
 protected:
     Player *player;
 

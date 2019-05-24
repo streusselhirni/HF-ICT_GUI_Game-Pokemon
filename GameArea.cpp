@@ -46,36 +46,26 @@ GameArea::~GameArea() {
 }
 
 void GameArea::next() {
-    auto newMeasurement = this->measure();
-    auto delta = newMeasurement - this->lastMeasurement;
-    for (GameObject *g : this->gameObjects) {
-        g->move(delta);
-    }
-
-    for (GameObject *g : this->gameObjects) {
-        g->move(delta);
-        if (CollisionDetection::isOutOfBound(g, this)) {
-            g->onOutOfBound();
+    if (this->started) {
+        auto           newMeasurement = this->measure();
+        auto           delta          = newMeasurement - this->lastMeasurement;
+        for (GameObject* g : this->gameObjects) {
+            g->move(delta);
         }
-    }
 
-    bool stop = false;
-    for (int i = 0; i < this->gameObjects.size(); ++i) {
-        auto g = this->gameObjects[i];
-        for (int j = i + 1; j < this->gameObjects.size(); ++j) {
-            auto g2 = this->gameObjects[j];
-            if (CollisionDetection::check(g, g2)) {
+        this->player->checkShotsOutOfBounds(this);
+
+        for (GameObject* g : this->gameObjects) {
+            if (this->player->checkShotCollision(g)) {
+                QSound::play("sound/capture.wav");
                 emit this->gameFinished();
-                stop = true;
                 break;
             }
         }
-        if (stop) {
-            break;
-        }
+
+        this->lastMeasurement = newMeasurement;
     }
 
-    this->lastMeasurement = newMeasurement;
     this->update();
 }
 

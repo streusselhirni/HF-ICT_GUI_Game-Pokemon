@@ -81,7 +81,6 @@ void GameArea::next() {
 
 void GameArea::startGame() {
     this->player = new Player(10, this->backgroundImage->scaledToWidth(this->width).height() - 240);
-    this->gameObjects.push_back(player->getShot());
     this->gameObjects.push_back(player);
 
     int x = 700 + (rand() % 18 * 10);
@@ -104,7 +103,6 @@ void GameArea::endGame() {
 }
 
 void GameArea::shoot(int speed, int angle) {
-    QSound::play("sound/throw_pokeball.wav");
     this->player->shoot(speed, angle);
 }
 

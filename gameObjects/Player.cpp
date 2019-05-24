@@ -1,12 +1,16 @@
 #include <QString>
+#include <QSound>
 #include "Player.h"
+#include "../CollisionDetection.h"
 
 Player::Player(int x, int y) : GameObject(x, y, 150, new QMovie("img/trainer.gif")) {
-    this->shot = new Shot(x, y, 0, 0);
+    for (int i = 0; i < Player::MAX_SHOTS; i++) {
+        this->shots[i] = new Shot(0, 0, 0, 0);
+    }
 }
 
 void Player::move(uint64_t delta) {
-    // do nothing
+    this->moveShots(delta);
 }
 
 short Player::getBodyType() const {
@@ -14,18 +18,56 @@ short Player::getBodyType() const {
 }
 
 void Player::shoot(int speed, int angle) {
-    this->shot->t = 0;
-    this->shot->setX(this->x + 30);
-    this->shot->setY(this->y + 30);
-    this->shot->setSpeed(speed);
-    this->shot->setAngle(angle);
-    this->shot->fire();
+    if (this->getShot(this->x + 30, this->y + 30, speed, angle) != nullptr) {
+        QSound::play("sound/throw_pokeball.wav");
+    }
 }
 
-Shot *Player::getShot() const {
-    return this->shot;
+Shot *Player::getShot(int x, int y, int speed, int angle) const {
+    for (int i = 0; i < Player::MAX_SHOTS; i++) {
+        if (!this->shots[i]->getFired()) {
+            this->shots[i]->init(x, y, speed, angle, 0.1);
+            return this->shots[i];
+        }
+    }
+    return nullptr;
 }
 
 void Player::onOutOfBound() {
 
+}
+
+void Player::paintShots(QPainter* painter) {
+    for (int i = 0; i < Player::MAX_SHOTS; i++){
+        this->shots[i]->paint(painter);
+    }
+}
+
+void Player::moveShots(uint64_t delta) {
+    for (int i = 0; i < Player::MAX_SHOTS; i++){
+        this->shots[i]->move(delta);
+    }
+}
+
+void Player::checkShotsOutOfBounds(QWidget* parent) {
+    for (int i = 0; i < Player::MAX_SHOTS; i++) {
+        if (CollisionDetection::isOutOfBound(this->shots[i], parent)) {
+            this->shots[i]->onOutOfBound();
+        }
+    }
+}
+
+bool Player::checkShotCollision(GameObject* target) {
+    for (int i = 0; i < Player::MAX_SHOTS; i++) {
+        if (CollisionDetection::check(this->shots[i], target)) {
+            return true;
+        }
+    }
+
+    return false;
+}
+
+void Player::paint(QPainter* painter) {
+    GameObject::paint(painter);
+    this->paintShots(painter);
 }

@@ -4,9 +4,20 @@
 #include "GameObject.h"
 #include "Shot.h"
 
+class QPainter;
+
 class Player : public GameObject {
 private:
-    Shot *shot;
+    static const int MAX_SHOTS = 5;
+
+    Shot* shots[MAX_SHOTS];
+
+    Shot *getShot(int x, int y, int speed, int angle) const;
+
+    void moveShots(uint64_t delta);
+
+    void paintShots(QPainter* painter);
+
 public:
     Player(int x, int y);
 
@@ -16,9 +27,14 @@ public:
 
     void shoot(int speed, int angle);
 
-    Shot *getShot() const;
+
+    void paint(QPainter *painter) override;
 
     void onOutOfBound() override;
+
+    void checkShotsOutOfBounds(QWidget* parent);
+
+    bool checkShotCollision(GameObject* target);
 };
 
 

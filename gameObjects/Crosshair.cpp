@@ -12,9 +12,20 @@ void Crosshair::paint(QPainter* painter)
 {
     QPen pen(QBrush(Qt::red), 4, Qt::DashLine, Qt::SquareCap, Qt::BevelJoin);
 
+    // Point to start drawing from
     QPoint p1(this->x, this->y);
 
-    int tmpangle = 180 - 90 - (90 - this->angle);
+    // Use trigonometry to calculate the second point
+    /*
+     *     x1
+     *    ----P2
+     *    |  /
+     * y1 | /
+     *    |/
+     *    P1
+     */
+    // Calculate angle at point P2 ("Wechselwinkel" between P1 and "floor")
+    int tmpangle = this->angle;
     int x1 = this->length*cos(degtorad(tmpangle));
     int y1 = this->length*sin(degtorad(tmpangle));
 

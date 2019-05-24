@@ -144,28 +144,33 @@ void GameWidget::reset() {
 }
 
 void GameWidget::keyPressEvent(QKeyEvent *event) {
-    this->pressedKeys[static_cast<const Qt::Key>(event->key())] =  true;
+    if (this->pressedKeys[static_cast<const Qt::Key>(event->key())] == RELEASED) {
+        this->pressedKeys[static_cast<const Qt::Key>(event->key())] = PRESSED;
+    } else if (this->pressedKeys[static_cast<const Qt::Key>(event->key())] == PRESSED ) {
+        this->pressedKeys[static_cast<const Qt::Key>(event->key())] = HOLD;
+    }
 }
 
 void GameWidget::keyReleaseEvent(QKeyEvent *event) {
-    this->pressedKeys[static_cast<const Qt::Key>(event->key())] =  false;
+    this->pressedKeys[static_cast<const Qt::Key>(event->key())] = RELEASED;
 }
 
 void GameWidget::paintEvent(QPaintEvent *event) {
     QWidget::paintEvent(event);
-    if (this->pressedKeys[(Qt::Key_Left)]) {
+    if (this->pressedKeys[(Qt::Key_Left)] == PRESSED || this->pressedKeys[(Qt::Key_Left)] == HOLD) {
         this->angleSlider->setValue(this->angleSlider->value() + 1);
     }
-    if (this->pressedKeys[(Qt::Key_Right)]) {
+    if (this->pressedKeys[(Qt::Key_Right)] == PRESSED || this->pressedKeys[(Qt::Key_Right)] == HOLD) {
         this->angleSlider->setValue(this->angleSlider->value() - 1);
     }
-    if (this->pressedKeys[(Qt::Key_Up)]) {
+    if (this->pressedKeys[(Qt::Key_Up)] == PRESSED || this->pressedKeys[(Qt::Key_Up)] == HOLD){
         this->speedSlider->setValue(this->speedSlider->value() + 1);
     }
-    if (this->pressedKeys[(Qt::Key_Down)]) {
+    if (this->pressedKeys[(Qt::Key_Down)] == PRESSED || this->pressedKeys[(Qt::Key_Down)] == HOLD) {
         this->speedSlider->setValue(this->speedSlider->value() - 1);
     }
-    if (this->pressedKeys[(Qt::Key_Space)]) {
+    if (this->pressedKeys[(Qt::Key_Space)] == PRESSED) {
         this->actionButtonClicked();
+        this->pressedKeys[(Qt::Key_Space)] = HOLD;
     }
 }

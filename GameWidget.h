@@ -10,13 +10,25 @@
 
 class GameArea;
 
+enum keyState {
+    RELEASED,
+    PRESSED,
+    HOLD
+};
+
 class GameWidget : public QWidget {
 Q_OBJECT;
 private:
     static short const MENU = 1;
     static short const RUNNING = 2;
 
-    std::map<Qt::Key, bool> pressedKeys;
+    std::map<Qt::Key, keyState> pressedKeys = {
+            {Qt::Key_Left, RELEASED},
+            {Qt::Key_Right, RELEASED},
+            {Qt::Key_Up, RELEASED},
+            {Qt::Key_Down, RELEASED},
+            {Qt::Key_Space, RELEASED}
+    };
 
     GameArea *gameArea;
     int width;

@@ -66,7 +66,6 @@ void GameArea::next() {
         for (int j = i + 1; j < this->gameObjects.size(); ++j) {
             auto g2 = this->gameObjects[j];
             if (CollisionDetection::check(g, g2)) {
-                QSound::play("sound/burst.wav");
                 emit this->gameFinished();
                 stop = true;
                 break;
@@ -106,7 +105,7 @@ void GameArea::endGame() {
 }
 
 void GameArea::shoot(int speed, int angle) {
-    QSound::play("sound/throw.wav");
+    QSound::play("sound/throw_pokeball.wav");
     this->player->shoot(speed, angle);
 }
 

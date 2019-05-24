@@ -129,9 +129,9 @@ bool GameWidget::isRunning() {
 void GameWidget::onGameFinished() {
     if (this->isInteractable()) {
         this->currentState |= GameWidget::MENU;
-        QSound::play("sound/win.wav");
+        QSound::play("sound/capture.wav");
         QMessageBox::information(this, tr("Your score!"),
-                                 QString("It took you %1 shots to hit the obstacle").arg(this->numShots->text()));
+                                 QString("It took you %1 shots to capture the Pokémon!").arg(this->numShots->text()));
     }
 }
 

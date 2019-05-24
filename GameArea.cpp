@@ -85,7 +85,6 @@ void GameArea::startGame() {
     this->player = new Player(10, this->backgroundImage->scaledToWidth(this->width).height() - 200);
     this->gameObjects.push_back(player->getShot());
     this->gameObjects.push_back(player);
-    qDebug() << "Created Crosshair";
 
     int x = 700 + (rand() % 18 * 10);
     int y = 200 + (rand() % 18 * 10);

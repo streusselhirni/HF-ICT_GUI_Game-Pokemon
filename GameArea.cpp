@@ -82,7 +82,7 @@ void GameArea::next() {
 }
 
 void GameArea::startGame() {
-    this->player = new Player(10, this->backgroundImage->scaledToWidth(this->width).height() - 200);
+    this->player = new Player(10, this->backgroundImage->scaledToWidth(this->width).height() - 240);
     this->gameObjects.push_back(player->getShot());
     this->gameObjects.push_back(player);
 

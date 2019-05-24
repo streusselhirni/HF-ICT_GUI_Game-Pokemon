@@ -7,6 +7,7 @@
 class Player : public GameObject {
 private:
     Shot *shot;
+    QMovie *movie;
 public:
     Player(int x, int y);
 
@@ -19,6 +20,8 @@ public:
     Shot *getShot() const;
 
     void onOutOfBound() override;
+
+    void paint(QPainter *painter) override;
 };
 
 

@@ -3,18 +3,16 @@
 #define HARAMBE_GAMEOBJECT_H
 
 #include <stdint.h>
-
-class QImage;
+#include <QImage>
 
 class QString;
 
 class QPainter;
 
 class GameObject {
-private:
-    QImage *img;
 
 protected:
+    QImage img;
     int x;
     int y;
     int width;

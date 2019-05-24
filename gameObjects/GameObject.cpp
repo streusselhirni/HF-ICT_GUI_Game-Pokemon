@@ -5,14 +5,14 @@
 
 GameObject::GameObject(int x, int y, const QString& imgPath, int width): x(x), y(y), width(width)
 {
-    this->img = new QImage(imgPath);
+    this->img = QImage(imgPath);
 }
 
 GameObject::GameObject() = default;
 
 void GameObject::paint(QPainter* painter)
 {
-    painter->drawImage(this->x, this->y, this->img->scaledToWidth(this->getWidth()));
+    painter->drawImage(this->x, this->y, this->img.scaledToWidth(this->getWidth()));
 }
 
 int GameObject::getX() const
@@ -42,10 +42,7 @@ int GameObject::getWidth() const
 
 int GameObject::getHeight() const
 {
-    return this->img->scaledToWidth(this->width).height();
+    return this->img.scaledToWidth(this->width).height();
 }
 
-GameObject::~GameObject()
-{
-    delete this->img;
-}
+GameObject::~GameObject() = default;

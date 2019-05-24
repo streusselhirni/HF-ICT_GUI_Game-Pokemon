@@ -1,22 +1,24 @@
 #include "CollisionDetection.h"
 #include <QDebug>
+#include <cmath>
 
 bool CollisionDetection::check(GameObject *obj, GameObject *obj2) {
     if (obj->getBodyType() == GameObject::BODY_NONE || obj2->getBodyType() == GameObject::BODY_NONE) { return false; }
 
-    if (obj->getX() + obj->getWidth() > obj2->getX() && obj->getX() < obj2->getX()) {
-        if (obj->getY() + obj->getHeight() > obj2->getY() && obj->getY() < obj2->getY()) {
-            return true;
-        }
-    }
+    auto objX = obj->getX() + (obj->getWidth() / 2);
+    auto objY = obj->getY() + (obj->getHeight() / 2);
+    auto objRad = ((obj->getHeight() / 2) + (obj->getWidth() / 2)) / 2;
 
-    if (obj2->getX() + obj2->getWidth() > obj->getX() && obj2->getX() < obj->getX()) {
-        if (obj2->getY() + obj2->getHeight() > obj->getY() && obj2->getY() < obj->getY()) {
-            return true;
-        }
-    }
+    auto obj2X = obj2->getX() + (obj2->getWidth() / 2);
+    auto obj2Y = obj2->getY() + (obj2->getHeight() / 2);
+    auto obj2Rad = ((obj2->getHeight() / 2) + (obj2->getWidth() / 2)) / 2;
 
-    return false;
+    auto distanceY = abs(objY - obj2Y);
+    auto distanceX = abs(objX - obj2X);
+
+    auto hypotenuse = sqrt(pow(distanceY, 2) + pow(distanceX, 2));
+
+    return hypotenuse < objRad + obj2Rad;
 }
 
 bool CollisionDetection::isOutOfBound(GameObject *obj, QWidget *widget) {

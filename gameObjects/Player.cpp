@@ -3,6 +3,9 @@
 
 Player::Player(int x, int y): GameObject(x, y, QString("img/gorilla.png"), 150)
 {
+    this->movie = new QMovie("img/trainer.gif");
+    this->movie ->start();
+    this->img = this->movie->currentImage();
     this->shot = new Shot(x, y, 0, 0);
 }
 
@@ -30,4 +33,9 @@ Shot *Player::getShot() const {
 
 void Player::onOutOfBound() {
 
+}
+
+void Player::paint(QPainter *painter) {
+    this->img = movie->currentImage();
+    GameObject::paint(painter);
 }

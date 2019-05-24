@@ -29,6 +29,7 @@ void GameWidget::createObjects() {
     this->numShots->setReadOnly(true);
     this->numShots->setFixedWidth(40);
     this->numShots->setMaximum(1000);
+    this->numShots->setFocusPolicy(Qt::FocusPolicy::NoFocus);
     this->numShots->setButtonSymbols(QSpinBox::ButtonSymbols::NoButtons);
 
     this->speedSlider = new QSlider(Qt::Orientation::Horizontal);
@@ -38,6 +39,7 @@ void GameWidget::createObjects() {
     this->speedOutput = new QSpinBox();
     this->speedOutput->setReadOnly(true);
     this->speedOutput->setFixedWidth(40);
+    this->speedOutput->setFocusPolicy(Qt::FocusPolicy::NoFocus);
     this->speedOutput->setButtonSymbols(QSpinBox::ButtonSymbols::NoButtons);
 
     this->angleSlider = new QSlider(Qt::Orientation::Horizontal);
@@ -47,13 +49,14 @@ void GameWidget::createObjects() {
     this->angleOutput = new QSpinBox();
     this->angleOutput->setReadOnly(true);
     this->angleOutput->setFixedWidth(40);
+    this->angleOutput->setFocusPolicy(Qt::FocusPolicy::NoFocus);
     this->angleOutput->setButtonSymbols(QSpinBox::ButtonSymbols::NoButtons);
 }
 
 void GameWidget::createLayout() {
     auto vbox = new QVBoxLayout();
 
-    auto title = new QLabel("<h1>Catch the Pokémon</h1>");
+    auto title = new QLabel("<h1>Catch the Pokémon!</h1>");
     title->setMaximumHeight(50);
     vbox->addWidget(title);
     vbox->addWidget(this->gameArea);

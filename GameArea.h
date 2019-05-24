@@ -22,7 +22,6 @@ private:
     Thread *t;
     int width;
     int height;
-    int angle;
     uint64_t lastMeasurement{};
     bool started;
 protected:

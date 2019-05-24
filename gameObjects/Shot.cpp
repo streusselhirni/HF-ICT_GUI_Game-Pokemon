@@ -7,6 +7,7 @@ Shot::Shot(int x, int y, int speed, int angle)
         : GameObject(x, y, 50, new QMovie("img/pokeball.gif"), 50),
           speed(speed),
           angle(angle),
+          rotation(0),
           t(0) {
     this->fired = false;
 }
@@ -19,6 +20,7 @@ void Shot::move(uint64_t delta) {
     this->t += .1;
     this->x = this->x + dx / 2;
     this->y = this->y - dy / 2;
+    this->rotation += 20;
 }
 
 short Shot::getBodyType() const {
@@ -39,7 +41,17 @@ void Shot::fire() {
 
 void Shot::paint(QPainter *painter) {
     if (this->fired) {
-        GameObject::paint(painter);
+        QTransform transform;
+        transform.translate(this->x + this->getWidth()/2, this->y + this->getHeight()/2);
+        transform.rotate(this->rotation);
+        transform.translate(-(this->x + this->getWidth()/2), -(this->y + this->getHeight()/2));
+
+        painter->setTransform(transform);
+        if (this->movie != nullptr) {
+            this->img = movie->currentImage();
+        }
+        painter->drawImage(this->x, this->y, this->img.scaledToWidth(this->getWidth()));
+        painter->resetTransform();
     }
 }
 

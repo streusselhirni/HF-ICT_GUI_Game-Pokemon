@@ -30,7 +30,6 @@ void GameArea::paintEvent(QPaintEvent *event) {
     if (!this->started) {return;}
 
     for (GameObject *g : this->gameObjects) {
-        painter.resetTransform();
         g->paint(&painter);
     }
 

@@ -14,6 +14,7 @@ private:
     int angle;
     double t;
     bool fired;
+    int rotation;
 
     Shot(int x, int y, int speed, int angle);
 

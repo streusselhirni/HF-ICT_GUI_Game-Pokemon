@@ -53,7 +53,7 @@ void GameWidget::createObjects() {
 void GameWidget::createLayout() {
     auto vbox = new QVBoxLayout();
 
-    auto title = new QLabel("<h1>Harambe</h1>");
+    auto title = new QLabel("<h1>Catch the Pokémon</h1>");
     title->setMaximumHeight(50);
     vbox->addWidget(title);
     vbox->addWidget(this->gameArea);

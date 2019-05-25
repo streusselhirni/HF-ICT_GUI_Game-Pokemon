@@ -21,12 +21,14 @@ private:
 public:
     Player(int x, int y);
 
+    ~Player() override;
+
     void move(uint64_t delta) override;
 
     short getBodyType() const override;
 
     bool shoot(int speed, int angle);
-    
+
     void paint(QPainter *painter) override;
 
     void onOutOfBound() override;

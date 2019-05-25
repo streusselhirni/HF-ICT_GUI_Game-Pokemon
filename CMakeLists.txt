@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.13)
-project(Harambe)
+project(Catch_the_pokemon)
 
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_AUTOMOC on)
@@ -32,5 +32,5 @@ set(SOURCE_FILES
         CollisionDetection.cpp
         CollisionDetection.h gameObjects/Crosshair.cpp gameObjects/Crosshair.h)
 
-add_executable(Harambe ${SOURCE_FILES})
-target_link_libraries(Harambe Qt5::Widgets Qt5::Multimedia)
+add_executable(Catch_the_pokemon ${SOURCE_FILES})
+target_link_libraries(Catch_the_pokemon Qt5::Widgets Qt5::Multimedia)

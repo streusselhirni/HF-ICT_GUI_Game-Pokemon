@@ -69,3 +69,9 @@ void Player::paint(QPainter* painter) {
     GameObject::paint(painter);
     this->paintShots(painter);
 }
+
+Player::~Player() {
+    for (int i = 0; i < Player::MAX_SHOTS; i++) {
+        delete this->shots[i];
+    }
+}

@@ -43,7 +43,6 @@ public:
     uint64_t measure();
 
 public slots:
-
     void next();
 
     void angleChanged(int a);
@@ -51,8 +50,9 @@ public slots:
     void strengthChanged(int s);
 
 signals:
-
     void gameFinished();
+
+    void shotFired();
 };
 
 

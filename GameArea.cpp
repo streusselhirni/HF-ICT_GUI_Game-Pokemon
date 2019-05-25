@@ -93,7 +93,10 @@ void GameArea::endGame() {
 }
 
 void GameArea::shoot(int speed, int angle) {
-    this->player->shoot(speed, angle);
+    if (this->player->shoot(speed, angle)) {
+        QSound::play("sound/throw_pokeball.wav");
+        emit this->shotFired();
+    }
 }
 
 uint64_t GameArea::measure() {

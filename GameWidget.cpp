@@ -88,6 +88,7 @@ void GameWidget::connectObjects() {
     QObject::connect(this->angleSlider, &QSlider::valueChanged, this->gameArea, &GameArea::angleChanged);
     QObject::connect(this->actionButton, &QPushButton::clicked, this, &GameWidget::actionButtonClicked);
     QObject::connect(this, &GameWidget::shoot, this->gameArea, &GameArea::shoot);
+    QObject::connect(this->gameArea, &GameArea::shotFired, this, &GameWidget::incrementShots);
     QObject::connect(this->gameArea, &GameArea::gameFinished, this, &GameWidget::onGameFinished);
     QObject::connect(this->gameArea, &GameArea::gameFinished, this, &GameWidget::reset);
     QObject::connect(this->gameArea, &GameArea::gameFinished, this->gameArea, &GameArea::endGame);
@@ -95,13 +96,7 @@ void GameWidget::connectObjects() {
 
 void GameWidget::actionButtonClicked() {
     if (this->isInteractable()) {
-        // Shoot cooldown
-        auto newMeasure = this->gameArea->measure();
-        if (newMeasure - this->lastPushTime > 200) {
-            this->numShots->setValue(this->numShots->value() + 1);
-            emit this->shoot(this->speedOutput->value(), this->angleOutput->value());
-            this->lastPushTime = newMeasure;
-        }
+        emit this->shoot(this->speedOutput->value(), this->angleOutput->value());
     } else {
         if (this->isRunning()) {
             this->actionButton->setText("Continue");
@@ -175,4 +170,8 @@ void GameWidget::paintEvent(QPaintEvent* event) {
         this->actionButtonClicked();
         this->pressedKeys[(Qt::Key_Space)] = HOLD;
     }
+}
+
+void GameWidget::incrementShots() {
+    this->numShots->setValue(this->numShots->value() + 1);
 }

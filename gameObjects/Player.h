@@ -8,7 +8,7 @@ class QPainter;
 
 class Player : public GameObject {
 private:
-    static const int MAX_SHOTS = 20;
+    static const int MAX_SHOTS = 5;
 
     Shot* shots[MAX_SHOTS];
 
@@ -25,9 +25,8 @@ public:
 
     short getBodyType() const override;
 
-    void shoot(int speed, int angle);
-
-
+    bool shoot(int speed, int angle);
+    
     void paint(QPainter *painter) override;
 
     void onOutOfBound() override;

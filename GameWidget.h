@@ -74,8 +74,10 @@ public:
     void onGameFinished();
 
 signals:
-
     void shoot(int speed, int angle);
+
+public slots:
+    void incrementShots();
 };
 
 

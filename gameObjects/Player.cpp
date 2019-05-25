@@ -17,10 +17,8 @@ short Player::getBodyType() const {
     return GameObject::BODY_NONE;
 }
 
-void Player::shoot(int speed, int angle) {
-    if (this->getShot(this->x + 30, this->y + 30, speed, angle) != nullptr) {
-        QSound::play("sound/throw_pokeball.wav");
-    }
+bool Player::shoot(int speed, int angle) {
+    return this->getShot(this->x + 30, this->y + 30, speed, angle) != nullptr;
 }
 
 Shot *Player::getShot(int x, int y, int speed, int angle) const {

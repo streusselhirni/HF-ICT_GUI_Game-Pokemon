@@ -6,15 +6,17 @@
 
 class QWidget;
 
-class GameWindow: public QMainWindow
-{
+class GameWindow : public QMainWindow {
 Q_OBJECT
-public:
-    explicit GameWindow(QWidget *parent = nullptr);
-    ~GameWindow() override;
-
 private:
     QWidget *gameWidget;
+    int windowWidth;
+    int windowHeight;
+public:
+    explicit GameWindow(QWidget *parent = nullptr);
+
+    ~GameWindow() override;
+
 };
 
 

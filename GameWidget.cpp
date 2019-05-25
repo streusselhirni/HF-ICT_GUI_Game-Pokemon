@@ -95,8 +95,13 @@ void GameWidget::connectObjects() {
 
 void GameWidget::actionButtonClicked() {
     if (this->isInteractable()) {
-        this->numShots->setValue(this->numShots->value() + 1);
-        emit this->shoot(this->speedOutput->value(), this->angleOutput->value());
+        // Shoot cooldown
+        auto newMeasure = this->gameArea->measure();
+        if (newMeasure - this->lastPushTime > 200) {
+            this->numShots->setValue(this->numShots->value() + 1);
+            emit this->shoot(this->speedOutput->value(), this->angleOutput->value());
+            this->lastPushTime = newMeasure;
+        }
     } else {
         if (this->isRunning()) {
             this->actionButton->setText("Continue");

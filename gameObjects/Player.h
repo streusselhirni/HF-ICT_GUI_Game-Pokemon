@@ -8,7 +8,7 @@ class QPainter;
 
 class Player : public GameObject {
 private:
-    static const int MAX_SHOTS = 5;
+    static const int MAX_SHOTS = 20;
 
     Shot* shots[MAX_SHOTS];
 
